@@ -1,17 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/Button";
-import { GradientBlob } from "@/components/visuals/GradientBlob";
 import { hero } from "@/lib/content";
+import bg from "@/public/assets/images/bg.png";
 
 export function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col overflow-hidden bg-white pb-20 pt-40">
-      {/* Vivid blue gradient cloud — large, fills the right side */}
-      <GradientBlob className="right-[-10%] top-[4%] h-[760px] w-[880px] sm:h-[920px] sm:w-[1080px]" />
+      {/* Background image (cell / molecule), faded to white on the left */}
+      <Image
+        src={bg}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="z-0 object-cover object-right"
+      />
+      {/* White mask over the left (behind the headline); image stays visible on the right */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.62) 22%, rgba(255,255,255,0.32) 42%, transparent 62%)",
+        }}
+      />
+      {/* Bottom fade into the next (white) section — removes the seam */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 z-0 h-32 bg-gradient-to-t from-white to-transparent"
+      />
 
-      <div className="relative mx-auto flex w-full max-w-[1320px] flex-1 flex-col justify-center gap-12 px-6 sm:px-8 lg:gap-14">
+      <div className="relative z-10 mx-auto flex w-full max-w-[1320px] flex-1 flex-col justify-center gap-12 px-6 sm:px-8 lg:gap-14">
         {/* Headline — left, large, pure black */}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
