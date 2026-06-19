@@ -39,4 +39,5 @@ next-env.d.ts
 /public/assets/images/screenshot*
 /public/assets/images/template*
 /public/assets/images/dna*
+!/public/assets/images/dna3.jpg
 /public/assets/images/截屏*
