@@ -11,8 +11,8 @@ export default function HomePage() {
       <Hero />
       <StatsBand />
       <Mission />
-      <Science />
       <Ecosystem />
+      <Science />
       <FinalCta />
     </>
   );

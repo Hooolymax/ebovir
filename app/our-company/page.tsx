@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
 import { Team } from "@/components/Team";
-import { company, links } from "@/lib/content";
+import { company, mission, labExpertise, links } from "@/lib/content";
 import cqib from "@/public/assets/images/cqib.jpg";
 
 export const metadata: Metadata = {
@@ -122,8 +123,87 @@ export default function OurCompanyPage() {
         </Container>
       </section>
 
+      {/* Mission & Vision */}
+      <section id="mission-vision" className="section scroll-mt-28 bg-mist">
+        <Container>
+          <SectionHeading
+            eyebrow={mission.eyebrow}
+            heading={mission.heading}
+            body={mission.body}
+          />
+          <div className="mt-14 grid gap-6 sm:grid-cols-2">
+            {mission.pillars.map((p, i) => (
+              <Reveal key={p.title} delay={(i % 2) * 0.08}>
+                <div className="glass-card h-full p-8">
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                    {p.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Facilities & Labs */}
+      <section id="facilities" className="section scroll-mt-28 bg-white">
+        <Container>
+          <SectionHeading
+            eyebrow={labExpertise.eyebrow}
+            heading={labExpertise.heading}
+            body={labExpertise.body}
+          />
+          <div className="mt-14 grid gap-6 sm:grid-cols-2">
+            {labExpertise.points.map((p, i) => (
+              <Reveal key={p.title} delay={(i % 2) * 0.08}>
+                <div className="glass-card glass-card-hover h-full p-8">
+                  <h3 className="text-lg font-semibold text-slate-900">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                    {p.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Quality & Compliance */}
+      <section id="quality" className="section scroll-mt-28 bg-mist">
+        <Container>
+          <SectionHeading
+            eyebrow="Quality & Compliance"
+            heading="Operating to recognized laboratory standards"
+            body="EBOVIR's laboratory work is conducted under established biosafety and quality practices appropriate to its BSL-2 and BSL-3 capabilities, with research products provided for research use only (RUO) unless otherwise specified."
+          />
+          <div className="mx-auto mt-12 max-w-3xl space-y-4">
+            <Reveal>
+              <p className="text-base leading-relaxed text-slate-600">
+                Laboratory operations follow universal-precaution handling and
+                biosafety oversight, supported by a dedicated biosafety officer
+                within our affiliated research network.
+              </p>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <p className="text-base leading-relaxed text-slate-600">
+                EBOVIR is a member of BioQuébec and RNACanada, and operates within
+                the CQIB Life Sciences Incubator in Québec&apos;s life-sciences
+                community.
+              </p>
+            </Reveal>
+          </div>
+        </Container>
+      </section>
+
       {/* Team */}
-      <Team />
+      <div id="team" className="scroll-mt-28">
+        <Team />
+      </div>
     </>
   );
 }

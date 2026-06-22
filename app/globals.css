@@ -66,6 +66,21 @@ body {
 }
 
 @layer utilities {
+  /* Smooth, lightweight dropdown entrance for the navigation */
+  @keyframes navPop {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-nav-pop {
+    animation: navPop 0.16s ease-out;
+  }
+
   /* Subtle dotted grid background */
   .bg-dot-grid {
     background-image: radial-gradient(

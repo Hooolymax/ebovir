@@ -107,7 +107,7 @@ export default function OurSciencePage() {
       </section>
 
       {/* CRO services */}
-      <section className="section bg-mist">
+      <section id="services" className="section scroll-mt-28 bg-mist">
         <Container>
           <SectionHeading
             eyebrow="CRO Platform"

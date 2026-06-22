@@ -4,7 +4,7 @@ import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/visuals/Icon";
-import { contact, links } from "@/lib/content";
+import { contact, inquiryTypes, links } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -21,7 +21,7 @@ export default function ContactPage() {
         subtitle="Reach the Ebovir team for partnerships, research services, and general enquiries — or visit the EboGenes store to order genetic testing products."
       />
 
-      <section className="section bg-white">
+      <section id="request-information" className="section scroll-mt-28 bg-white">
         <Container>
           <div className="grid gap-6 lg:grid-cols-3">
             {/* Email */}
@@ -81,6 +81,43 @@ export default function ContactPage() {
                 </p>
               </div>
             </Reveal>
+          </div>
+
+          {/* Inquiry routing */}
+          <div className="mt-16">
+            <Reveal>
+              <span className="eyebrow">{inquiryTypes.eyebrow}</span>
+              <h2 className="mt-5 font-display text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
+                {inquiryTypes.heading}
+              </h2>
+              <p className="mt-4 max-w-2xl text-slate-600">{inquiryTypes.body}</p>
+            </Reveal>
+            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {inquiryTypes.items.map((item, i) => (
+                <Reveal key={item.id} delay={(i % 3) * 0.08}>
+                  <div
+                    id={item.id}
+                    className="glass-card glass-card-hover flex h-full scroll-mt-28 flex-col p-7"
+                  >
+                    <h3 className="text-lg font-semibold text-slate-900">
+                      {item.name}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">
+                      {item.body}
+                    </p>
+                    <a
+                      href={`mailto:${item.email}?subject=${encodeURIComponent(
+                        item.name + " — EBOVIR"
+                      )}`}
+                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-bio-teal transition hover:text-bio-indigo"
+                    >
+                      {item.email}
+                      <span aria-hidden>→</span>
+                    </a>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
 
           {/* Store CTA band */}

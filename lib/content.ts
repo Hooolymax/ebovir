@@ -26,18 +26,179 @@ export const links = {
   science: "/our-science",
   company: "/our-company",
   platforms: "/platforms",
+  businessAreas: "/business-areas",
   products: "/products",
+  medicalCenter: "/medical-center",
+  news: "/news",
   home: "/",
 } as const;
 
-export const nav = [
+/* ------------------------------------------------------------------ */
+/* NAVIGATION — layered corporate structure                            */
+/* A single source of truth for the top navigation: top-level items,   */
+/* dropdown panels (with optional descriptions), and the Products &    */
+/* Solutions three-column mega menu, grouped by audience.              */
+/* ------------------------------------------------------------------ */
+export interface NavLink {
+  label: string;
+  href: string;
+  description?: string;
+  external?: boolean;
+  icon?: string;
+}
+export interface NavColumn {
+  title: string;
+  items: NavLink[];
+}
+export interface NavNode {
+  label: string;
+  href: string;
+  /** Panel layout: "list" = compact links, "rich" = links + descriptions, "cards" = 2x2 portal cards, "mega" = audience columns. */
+  panel?: "list" | "rich" | "cards" | "mega";
+  /** Horizontal alignment of the dropdown panel (defaults to left). */
+  align?: "left" | "right";
+  children?: NavLink[];
+  columns?: NavColumn[];
+}
+
+export const mainNav: NavNode[] = [
   { label: "Home", href: "/" },
-  { label: "Our Company", href: "/our-company" },
-  { label: "Our Science", href: "/our-science" },
-  { label: "Products", href: "/products" },
-  { label: "Platforms", href: "/platforms" },
-  { label: "Contact", href: "/contact" },
-] as const;
+  {
+    label: "About",
+    href: "/our-company",
+    panel: "list",
+    children: [
+      { label: "About EBOVIR", href: "/our-company" },
+      { label: "Mission & Vision", href: "/our-company#mission-vision" },
+      { label: "Facilities & Labs", href: "/our-company#facilities" },
+      { label: "Leadership & Team", href: "/our-company#team" },
+      { label: "Quality & Compliance", href: "/our-company#quality" },
+    ],
+  },
+  {
+    // Platforms = the four actual public-facing EBOVIR platforms / portals.
+    label: "Platforms",
+    href: "/platforms",
+    panel: "cards",
+    children: [
+      {
+        label: "EboGenes",
+        href: "/platforms#ebogenes",
+        description: "Genetic health & testing platform.",
+        icon: "dna",
+      },
+      {
+        label: "EboScience",
+        href: "/platforms#eboscience",
+        description: "Exosome biotechnology, skincare & wellness platform.",
+        icon: "molecule",
+      },
+      {
+        label: "EboMed AI",
+        href: "/platforms#ebomed-ai",
+        description: "AI health intelligence and genomic interpretation platform.",
+        icon: "ai",
+      },
+      {
+        label: "EBOVIR Lab",
+        href: "/platforms#ebovir-lab",
+        description: "Diagnostics, CRO services, and translational research platform.",
+        icon: "lab",
+      },
+    ],
+  },
+  {
+    // Business Areas = applied strategic business directions.
+    label: "Business Areas",
+    href: "/business-areas",
+    panel: "rich",
+    children: [
+      {
+        label: "Precision Diagnostics & Omics",
+        href: "/business-areas#precision-diagnostics",
+        description: "Testing, screening, and omics insights.",
+      },
+      {
+        label: "AI Healthcare",
+        href: "/business-areas#ai-healthcare",
+        description: "AI interpretation and intelligent reports.",
+      },
+      {
+        label: "Regenerative Medicine",
+        href: "/business-areas#regenerative-medicine",
+        description: "Cell research and regenerative biotechnology.",
+      },
+      {
+        label: "RNA/LNP Drug Development",
+        href: "/business-areas#rna-lnp",
+        description: "RNA therapeutics and LNP delivery.",
+      },
+      {
+        label: "Exosome & Aesthetic Biotechnology",
+        href: "/business-areas#exosome-aesthetic",
+        description: "Exosome ingredients and aesthetic applications.",
+      },
+      {
+        label: "Premium Medical Center",
+        href: "/business-areas#premium-medical",
+        description: "Precision health and premium services.",
+      },
+    ],
+  },
+  {
+    // Products & Solutions = concrete offerings and conversion paths.
+    label: "Products & Solutions",
+    href: "/products",
+    panel: "mega",
+    columns: [
+      {
+        title: "For Researchers & Industry",
+        items: [
+          { label: "EBOVIR Lab Services", href: "/our-science#services" },
+          { label: "RNA/LNP Development", href: "/business-areas#rna-lnp" },
+          { label: "Exosome Ingredients", href: "/products" },
+          { label: "Research Collaboration", href: "/contact#partnership" },
+        ],
+      },
+      {
+        title: "For Clinics & Healthcare Partners",
+        items: [
+          { label: "Genetic Testing", href: "/business-areas#precision-diagnostics" },
+          { label: "Early Cancer Screening", href: "/business-areas#precision-diagnostics" },
+          { label: "Liquid Biopsy", href: "/business-areas#precision-diagnostics" },
+          { label: "Molecular Diagnostics", href: "/business-areas#precision-diagnostics" },
+          { label: "AI Genetic Reports", href: "/business-areas#ai-healthcare" },
+        ],
+      },
+      {
+        title: "For Personalized Health",
+        items: [
+          { label: "EboGenes Testing", href: links.eboGenesStore, external: true },
+          { label: "EboScience Products", href: links.eboScience, external: true },
+          { label: "EboMed AI Consultant", href: links.eboMedAi, external: true },
+          { label: "Medical Center Services", href: "/medical-center" },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Medical Center",
+    href: "/medical-center",
+    panel: "list",
+    align: "right",
+    children: [
+      { label: "Overview", href: "/medical-center" },
+      { label: "Precision Health Management", href: "/medical-center#precision-health" },
+      { label: "Advanced Diagnostics", href: "/medical-center#advanced-diagnostics" },
+      { label: "Personalized Consultation", href: "/medical-center#consultation" },
+      { label: "Membership Services", href: "/medical-center#membership" },
+      { label: "Book a Consultation", href: "/medical-center#book" },
+    ],
+  },
+];
+
+/** Compact top-level list reused by the footer. */
+export const nav = mainNav.map((n) => ({ label: n.label, href: n.href }));
 
 export const contact = {
   // All confirmed on ebovir.ca
@@ -147,54 +308,66 @@ export const scienceCards = {
 /* ------------------------------------------------------------------ */
 /* HOME — Integrated Biotechnology Ecosystem                          */
 /* ------------------------------------------------------------------ */
+/**
+ * Brand architecture / ecosystem map (NOT a technology-platform list).
+ * EBOVIR is the parent platform; the four cards are existing public-facing
+ * brands / portals — the main entry points into the ecosystem.
+ * Keep card copy to a single short tag; technical depth lives in
+ * `platformsDetail` and applied markets live in `businessAreas`.
+ */
 export const ecosystem = {
   eyebrow: "The Ecosystem",
-  heading: "An integrated biotechnology ecosystem",
-  body: "Genetics, science, AI, and laboratory expertise — under one platform.",
+  heading: "The EBOVIR Ecosystem",
+  subtitle:
+    "Four connected entry points across genetic health, exosome biotechnology, AI healthcare, and laboratory services.",
+  parent: {
+    name: "EBOVIR",
+    label: "Integrated Biology, Omics & Intelligent Healthcare Platform",
+  },
   cards: [
     {
+      id: "ebogenes",
       name: "EboGenes",
       tag: "Genetic health & testing",
-      short: "Consumer genetic-health testing.",
-      // Confirmed brand; store at ebogenes.com
-      body: "Our consumer genetic-health brand, offering genetic testing products. Ordering is handled through the dedicated EboGenes store.",
+      description: "Genetic health & testing platform.",
+      blurb:
+        "Our consumer genetic-health brand, offering genetic testing products. Ordering is handled through the dedicated EboGenes store.",
       href: links.eboGenesStore,
       external: true,
-      cta: "Visit EboGenes Store",
-      needsConfirmation: false,
+      icon: "dna",
     },
     {
+      id: "eboscience",
       name: "EboScience",
       tag: "Skincare & wellness",
-      short: "Science-led skincare & wellness.",
-      // Confirmed at eboscience.com
-      body: "A biotech skincare and wellness brand applying exosome technology and genetic skin analysis to anti-aging and skin-repair solutions.",
+      description: "Exosome biotechnology, skincare & wellness platform.",
+      blurb:
+        "A biotech skincare and wellness brand applying exosome technology and genetic skin analysis to anti-aging and skin-repair solutions.",
       href: links.eboScience,
       external: true,
-      cta: "Visit EboScience",
-      needsConfirmation: false,
+      icon: "molecule",
     },
     {
+      id: "ebomed-ai",
       name: "EboMed AI",
       tag: "AI health intelligence",
-      short: "AI health consultant (E-AI Doctor).",
-      // Live platform provided: E-AI Doctor at e-ai.ca
-      body: "An AI health consultant (E-AI Doctor) that helps interpret health and genomic information into clear, accessible guidance.",
+      description: "AI health intelligence and genomic interpretation platform.",
+      blurb:
+        "An AI health consultant (E-AI Doctor) that helps interpret health and genomic information into clear, accessible guidance.",
       href: links.eboMedAi,
       external: true,
-      cta: "Visit AI platform",
-      needsConfirmation: false,
+      icon: "ai",
     },
     {
-      name: "Ebovir Lab",
+      id: "ebovir-lab",
+      name: "EBOVIR Lab",
       tag: "Diagnostics & CRO services",
-      short: "BSL-2/3 diagnostics & CRO services.",
-      // Confirmed: BSL-2 / BSL-3 private diagnostic laboratory
-      body: "One of North America's advanced private diagnostic laboratories, with BSL-2 and BSL-3 capabilities supporting virology research and preclinical development.",
+      description: "Diagnostics, CRO services, and translational research platform.",
+      blurb:
+        "One of North America's advanced private diagnostic laboratories, with BSL-2 and BSL-3 capabilities supporting virology research and preclinical development.",
       href: links.science,
       external: false,
-      cta: "Explore our science",
-      needsConfirmation: false,
+      icon: "lab",
     },
   ],
 } as const;
@@ -592,5 +765,183 @@ export const products = {
     { title: "Exosome", body: "Exosome-based research materials." },
     { title: "Virology Tools", body: "Tools supporting virology research workflows." },
     { title: "Kits (RUO)", body: "Research-Use-Only kits for laboratory applications." },
+  ],
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* PLATFORMS PAGE — the four public-facing platforms / portals         */
+/* The platform cards themselves come from `ecosystem` (single source  */
+/* of truth for the brand architecture). This block holds page copy.   */
+/* ------------------------------------------------------------------ */
+export const platformsPage = {
+  eyebrow: "Platforms",
+  title: "The EBOVIR platforms",
+  intro:
+    "EBOVIR operates four connected, public-facing platforms — genetic health, exosome biotechnology, AI healthcare, and laboratory services — each an entry point into the wider precision-health ecosystem.",
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* BUSINESS AREAS — group-level business segmentation                  */
+/* ------------------------------------------------------------------ */
+export const businessAreas = {
+  eyebrow: "Business Areas",
+  title: "The business areas EBOVIR covers",
+  intro:
+    "From precision diagnostics to premium medical services, EBOVIR's business areas connect laboratory science, AI, and clinical collaboration across research, industry, clinical, and personalized-health audiences.",
+  items: [
+    {
+      id: "precision-diagnostics",
+      name: "Precision Diagnostics & Omics",
+      body: "Genetic testing, molecular diagnostics, liquid biopsy, early screening, and companion diagnostic development, grounded in genome-scale data.",
+      audience: "Clinical · Research",
+    },
+    {
+      id: "ai-healthcare",
+      name: "AI Healthcare",
+      body: "AI genetic interpretation, intelligent reporting, disease-risk analysis, and clinical decision-support systems built on omics data.",
+      audience: "Clinical · Consumer",
+    },
+    {
+      id: "regenerative-medicine",
+      name: "Regenerative Medicine",
+      body: "Stem cell banking, immune cell research, NK cell research, and regenerative medicine development advancing translational science.",
+      audience: "Research · Clinical",
+    },
+    {
+      id: "rna-lnp",
+      name: "RNA/LNP Drug Development",
+      body: "RNA drug development, LNP delivery, nucleic-acid therapeutics, and translational collaboration with biopharma and research partners.",
+      audience: "Industry · Research",
+    },
+    {
+      id: "exosome-aesthetic",
+      name: "Exosome & Aesthetic Biotechnology",
+      body: "Exosome-based ingredients, skin wellness applications, aesthetic biotechnology, and product development for partners and brands.",
+      audience: "Industry · Consumer",
+    },
+    {
+      id: "premium-medical",
+      name: "Premium Medical Center",
+      body: "Precision health management, advanced diagnostics, personalized consultation, and premium medical services for individuals.",
+      audience: "Consumer · Clinical",
+    },
+  ],
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* MEDICAL CENTER — premium precision-health services                  */
+/* ------------------------------------------------------------------ */
+export const medicalCenter = {
+  eyebrow: "Medical Center",
+  title: "Precision health, personalized",
+  intro:
+    "The EBOVIR Medical Center brings the group's omics, diagnostics, and AI capabilities together into premium, personalized health services — focused on prevention, accurate assessment, and informed decisions.",
+  sections: [
+    {
+      id: "precision-health",
+      name: "Precision Health Management",
+      body: "Personalized health programs that combine genomic insight, advanced diagnostics, and AI interpretation to support prevention and long-term planning.",
+    },
+    {
+      id: "advanced-diagnostics",
+      name: "Advanced Diagnostics",
+      body: "Access to molecular diagnostics, early screening, and omics-driven assessments delivered through EBOVIR's laboratory platforms.",
+    },
+    {
+      id: "consultation",
+      name: "Personalized Consultation",
+      body: "One-on-one consultations that translate complex results into clear, individualized guidance, supported by AI-assisted reporting.",
+    },
+    {
+      id: "membership",
+      name: "Membership Services",
+      body: "Ongoing membership programs offering continuity of care, periodic reassessment, and coordinated access to EBOVIR services.",
+    },
+  ],
+  book: {
+    id: "book",
+    heading: "Book a consultation",
+    body: "Request an appointment with the EBOVIR Medical Center team to discuss precision health management and personalized services.",
+    cta: { label: "Request an appointment", href: "/contact#appointment" },
+  },
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* NEWS & INSIGHTS — editorial categories (placeholder hub)            */
+/* ------------------------------------------------------------------ */
+export const newsInsights = {
+  eyebrow: "News & Insights",
+  title: "News & insights from EBOVIR",
+  intro:
+    "Updates, scientific perspectives, and announcements from across the EBOVIR group. New articles are published here as our platforms and collaborations advance.",
+  categories: [
+    {
+      id: "company",
+      name: "Company Updates",
+      body: "Milestones, recognitions, facility developments, and organizational news from across the group.",
+    },
+    {
+      id: "science",
+      name: "Scientific Insights",
+      body: "Perspectives on omics, diagnostics, regenerative medicine, and AI in precision health.",
+    },
+    {
+      id: "products",
+      name: "Product Announcements",
+      body: "New product lines, service offerings, and platform capabilities as they become available.",
+    },
+    {
+      id: "industry",
+      name: "Industry Perspectives",
+      body: "Views on the precision-health and biotechnology landscape in North America and beyond.",
+    },
+    {
+      id: "clinical",
+      name: "Clinical & Research News",
+      body: "Updates from clinical collaborations, research programs, and translational projects.",
+    },
+  ],
+  emptyState:
+    "Articles are being prepared. For media or partnership enquiries in the meantime, please contact the EBOVIR team.",
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* CONTACT — inquiry routing (section anchors used by the navigation)  */
+/* ------------------------------------------------------------------ */
+export const inquiryTypes = {
+  eyebrow: "How can we help?",
+  heading: "Reach the right team",
+  body: "Tell us how we can help and your enquiry will reach the appropriate EBOVIR team.",
+  items: [
+    {
+      id: "general",
+      name: "General Inquiry",
+      body: "Questions about EBOVIR, our platforms, or the group.",
+      email: "info@ebovir.ca",
+    },
+    {
+      id: "partnership",
+      name: "Partnership",
+      body: "Research collaboration, CRO services, and biopharma partnerships.",
+      email: "info@ebovir.ca",
+    },
+    {
+      id: "product",
+      name: "Product Inquiry",
+      body: "Exosome ingredients, research products, and specifications.",
+      email: "info@ebovir.ca",
+    },
+    {
+      id: "clinical",
+      name: "Clinical Partnership",
+      body: "Clinics and healthcare partners integrating diagnostics and reporting.",
+      email: "testcenter@ebovir.ca",
+    },
+    {
+      id: "appointment",
+      name: "Medical Center Appointment",
+      body: "Premium medical services and precision health consultations.",
+      email: "testcenter@ebovir.ca",
+    },
   ],
 } as const;
