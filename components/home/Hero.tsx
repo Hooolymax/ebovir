@@ -39,11 +39,13 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.05 }}
-          className="font-display text-6xl font-bold leading-[0.92] tracking-tight text-black sm:text-8xl lg:text-[6rem]"
+          className="font-display text-6xl font-bold leading-[1.2] tracking-tight text-black sm:text-8xl lg:text-[6rem]"
         >
-          The Precision
+          Empowering
           <br />
-          Health Company
+          Biology
+          <br />
+          Omics
         </motion.h1>
 
         {/* Subheadline + CTAs — right */}
