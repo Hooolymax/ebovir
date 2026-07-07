@@ -1,23 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Button } from "@/components/Button";
 import { hero } from "@/lib/content";
-import bg from "@/public/assets/images/bg.png";
 
 export function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col overflow-hidden bg-white pb-20 pt-40">
-      {/* Background image (cell / molecule), faded to white on the left */}
-      <Image
-        src={bg}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="z-0 object-cover object-right"
-      />
+      <video
+        aria-hidden
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className="absolute inset-0 z-0 h-full w-full object-cover object-right"
+      >
+        <source src="/assets/videos/dna-banner-1080p.mp4" type="video/mp4" />
+      </video>
       {/* White mask over the left (behind the headline); image stays visible on the right */}
       <div
         aria-hidden
