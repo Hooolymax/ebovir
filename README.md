@@ -104,7 +104,16 @@ vercel --prod   # production deploy
 
 ### Notes
 
-- No environment variables are required for the current build.
-- `metadataBase` in `app/layout.tsx` is set to `https://www.ebovir.ca` — update it
+- Product request forms require the five variables listed in `.env.example`.
+  Add them to **Vercel → Project Settings → Environment Variables** for
+  Production and Preview before deploying. During delivery testing, set
+  `PRODUCT_REQUEST_TO_EMAIL=volitantandre@gmail.com`; after the full flow is
+  verified, change it to `testcenter@ebovir.ca` and redeploy. The form sends
+  through Resend and verifies Cloudflare Turnstile on the server.
+- Without these variables, the product request form remains visible and
+  interactive, but submission does not send or store information.
+- Verify `ebovir.ca` in Resend before using an address such as
+  `Ebovir Product Requests <requests@ebovir.ca>` as `RESEND_FROM_EMAIL`.
+- `metadataBase` in `app/[locale]/layout.tsx` is set to `https://www.ebovir.ca` — update it
   if you deploy under a different production domain so Open Graph URLs resolve correctly.
 ```

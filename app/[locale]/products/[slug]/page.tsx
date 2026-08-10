@@ -3,7 +3,7 @@ import { LocalizedLink } from "@/components/LocalizedLink";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
-import { Button } from "@/components/Button";
+import { ProductRequestForm } from "@/components/ProductRequestForm";
 import { exosomeProducts as englishProducts } from "@/lib/content";
 import { getContent } from "@/lib/i18n/content";
 import { ui } from "@/lib/i18n/ui";
@@ -40,7 +40,7 @@ export default async function ProductDetailPage({ params }: Params) {
   const { locale: localeParam, slug } = await params;
   if (!isLocale(localeParam)) notFound();
   const locale = localeParam as Locale;
-  const { exosomeProducts, exosomeCommon, links } = getContent(locale);
+  const { exosomeProducts, exosomeCommon } = getContent(locale);
   const labels = ui[locale];
   const product = exosomeProducts.items.find((p) => p.slug === slug);
   if (!product) notFound();
@@ -110,14 +110,17 @@ export default async function ProductDetailPage({ params }: Params) {
             </Reveal>
 
             <Reveal>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <Button href={links.eboGenesStore} withArrow>
-                  {labels.orderStore}
-                </Button>
-                <Button href={links.contact} variant="secondary">
-                  {labels.contactSpecifications}
-                </Button>
-              </div>
+              <ProductRequestForm
+                locale={locale}
+                product={{
+                  name: product.name,
+                  productName: product.productName,
+                  catNo: product.catNo,
+                  slug: product.slug,
+                }}
+                labels={labels.productRequest}
+                turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
+              />
             </Reveal>
           </div>
 
