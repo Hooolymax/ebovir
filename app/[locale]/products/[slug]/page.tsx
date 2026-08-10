@@ -1,40 +1,60 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LocalizedLink } from "@/components/LocalizedLink";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
-import { exosomeProducts, exosomeCommon, links } from "@/lib/content";
+import { exosomeProducts as englishProducts } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { ui } from "@/lib/i18n/ui";
+import { isLocale, routing, type Locale } from "@/i18n/routing";
+import { pageAlternates } from "@/lib/i18n/metadata";
 
-type Params = { params: { slug: string } };
+type Params = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
-  return exosomeProducts.items.map((p) => ({ slug: p.slug }));
+  return routing.locales.flatMap((locale) =>
+    englishProducts.items.map((p) => ({ locale, slug: p.slug }))
+  );
 }
 
-export function generateMetadata({ params }: Params): Metadata {
-  const product = exosomeProducts.items.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { locale, slug } = await params;
+  if (!isLocale(locale)) return { title: "Product" };
+  const { exosomeProducts } = getContent(locale);
+  const product = exosomeProducts.items.find((p) => p.slug === slug);
   if (!product) return { title: "Product" };
+  const suffix = locale === "fr"
+    ? "Résumé de la fiche technique Ebovir."
+    : locale === "zh-CN"
+      ? "Ebovir 产品数据表摘要。"
+      : "Ebovir datasheet summary.";
   return {
     title: product.name,
-    description: `${product.productName} (${product.catNo}) — ${product.sourceShort} Ebovir datasheet summary.`,
+    description: `${product.productName} (${product.catNo}) — ${product.sourceShort} ${suffix}`,
+    alternates: pageAlternates(locale, `/products/${product.slug}`),
   };
 }
 
-export default function ProductDetailPage({ params }: Params) {
-  const product = exosomeProducts.items.find((p) => p.slug === params.slug);
+export default async function ProductDetailPage({ params }: Params) {
+  const { locale: localeParam, slug } = await params;
+  if (!isLocale(localeParam)) notFound();
+  const locale = localeParam as Locale;
+  const { exosomeProducts, exosomeCommon, links } = getContent(locale);
+  const labels = ui[locale];
+  const product = exosomeProducts.items.find((p) => p.slug === slug);
   if (!product) notFound();
 
   const specs = [
-    { label: "Catalogue No.", value: product.catNo },
-    { label: "Source", value: product.source },
-    { label: "Contains", value: product.contains },
-    { label: "Form", value: exosomeCommon.form },
-    { label: "Concentration", value: exosomeCommon.concentration },
-    { label: "Storage & handling", value: exosomeCommon.storage },
-    { label: "Defrost", value: exosomeCommon.defrost },
-    { label: "Safety", value: exosomeCommon.safety },
-    { label: "Intended use", value: exosomeCommon.intendedUse },
+    { label: labels.catalogueNo, value: product.catNo },
+    { label: labels.source, value: product.source },
+    { label: labels.contains, value: product.contains },
+    { label: labels.form, value: exosomeCommon.form },
+    { label: labels.concentration, value: exosomeCommon.concentration },
+    { label: labels.storage, value: exosomeCommon.storage },
+    { label: labels.defrost, value: exosomeCommon.defrost },
+    { label: labels.safety, value: exosomeCommon.safety },
+    { label: labels.intendedUse, value: exosomeCommon.intendedUse },
   ];
 
   return (
@@ -42,12 +62,12 @@ export default function ProductDetailPage({ params }: Params) {
       <Container>
         {/* Back link */}
         <Reveal>
-          <Link
+          <LocalizedLink
             href="/products"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-bio-teal"
           >
-            <span aria-hidden>←</span> All products
-          </Link>
+            <span aria-hidden>←</span> {labels.allProducts}
+          </LocalizedLink>
         </Reveal>
 
         {/* Header */}
@@ -71,7 +91,7 @@ export default function ProductDetailPage({ params }: Params) {
           <div>
             <Reveal>
               <h2 className="font-display text-xl font-semibold text-slate-900">
-                Product overview
+                {labels.productOverview}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-slate-600">
                 {exosomeCommon.overview}
@@ -81,7 +101,7 @@ export default function ProductDetailPage({ params }: Params) {
             <Reveal>
               <div className="mt-10 rounded-2xl border border-bio-cyan/20 bg-bio-cyan/[0.06] p-6">
                 <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-bio-teal">
-                  Efficacy
+                  {labels.efficacy}
                 </h2>
                 <p className="mt-2 text-base leading-relaxed text-slate-700">
                   {exosomeCommon.efficacy}
@@ -92,10 +112,10 @@ export default function ProductDetailPage({ params }: Params) {
             <Reveal>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Button href={links.eboGenesStore} withArrow>
-                  Order on EboGenes Store
+                  {labels.orderStore}
                 </Button>
                 <Button href={links.contact} variant="secondary">
-                  Contact for specifications
+                  {labels.contactSpecifications}
                 </Button>
               </div>
             </Reveal>
@@ -107,7 +127,7 @@ export default function ProductDetailPage({ params }: Params) {
               <div className="overflow-hidden rounded-2xl border border-slate-200">
                 <div className="border-b border-slate-200 bg-slate-50 px-6 py-4">
                   <h2 className="text-sm font-semibold text-slate-900">
-                    Datasheet
+                    {labels.datasheet}
                   </h2>
                 </div>
                 <dl className="divide-y divide-slate-200">

@@ -4,7 +4,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/Button";
 import { hero } from "@/lib/content";
 
-export function Hero() {
+export function Hero({
+  content = hero,
+  headlineLines = ["Empowering", "Biology", "Omics"],
+}: {
+  content?: typeof hero;
+  headlineLines?: readonly string[];
+}) {
   return (
     <section className="relative flex min-h-screen flex-col overflow-hidden bg-white pb-20 pt-40">
       <video
@@ -41,11 +47,12 @@ export function Hero() {
           transition={{ duration: 0.75, delay: 0.05 }}
           className="font-display text-6xl font-bold leading-[1.2] tracking-tight text-black sm:text-8xl lg:text-[6rem]"
         >
-          Empowering
-          <br />
-          Biology
-          <br />
-          Omics
+          {headlineLines.map((line, index) => (
+            <span key={line}>
+              {line}
+              {index < headlineLines.length - 1 && <br />}
+            </span>
+          ))}
         </motion.h1>
 
         {/* Subheadline + CTAs — right */}
@@ -57,14 +64,14 @@ export function Hero() {
             className="max-w-md"
           >
             <p className="text-lg font-medium leading-relaxed text-slate-700">
-              {hero.subheading}
+              {content.subheading}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button href={hero.primaryCta.href} withArrow>
-                {hero.primaryCta.label}
+              <Button href={content.primaryCta.href} withArrow>
+                {content.primaryCta.label}
               </Button>
-              <Button href={hero.secondaryCta.href} variant="secondary">
-                {hero.secondaryCta.label}
+              <Button href={content.secondaryCta.href} variant="secondary">
+                {content.secondaryCta.label}
               </Button>
             </div>
           </motion.div>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LocalizedLink } from "@/components/LocalizedLink";
 import { ReactNode } from "react";
 
 function isExternal(href: string) {
@@ -49,8 +49,8 @@ export function Button({
     );
   }
   return (
-    <Link href={href} className={cls}>
+    <LocalizedLink href={href} className={cls}>
       {content}
-    </Link>
+    </LocalizedLink>
   );
 }

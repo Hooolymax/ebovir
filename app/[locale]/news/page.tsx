@@ -3,15 +3,22 @@ import { PageHero } from "@/components/PageHero";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
-import { newsInsights } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { ui } from "@/lib/i18n/ui";
+import { buildPageMetadata } from "@/lib/i18n/metadata";
+import { isLocale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "News & Insights",
-  description:
-    "News and insights from the EBOVIR group — company updates, scientific insights, product announcements, industry perspectives, and clinical & research news.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(isLocale(locale) ? locale : "en", "news", "/news");
+}
 
-export default function NewsPage() {
+export default async function NewsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : "en";
+  const content = getContent(locale);
+  const { newsInsights } = content;
+  const labels = ui[locale];
   return (
     <>
       <PageHero
@@ -36,7 +43,7 @@ export default function NewsPage() {
                     {c.body}
                   </p>
                   <p className="mt-5 text-xs font-medium uppercase tracking-[0.14em] text-slate-400">
-                    Articles coming soon
+                    {labels.articlesComing}
                   </p>
                 </div>
               </Reveal>
@@ -49,7 +56,7 @@ export default function NewsPage() {
                 {newsInsights.emptyState}
               </p>
               <Button href="/contact#general" withArrow>
-                Contact the team
+                {labels.contactTeam}
               </Button>
             </div>
           </Reveal>

@@ -1,9 +1,20 @@
-import Link from "next/link";
+import { LocalizedLink } from "@/components/LocalizedLink";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { nav, links, contact, site } from "@/lib/content";
+import { ui, type UiMessages } from "@/lib/i18n/ui";
 
-export function Footer() {
+export function Footer({
+  navItems = nav,
+  contactInfo = contact,
+  siteInfo = site,
+  labels = ui.en,
+}: {
+  navItems?: typeof nav;
+  contactInfo?: typeof contact;
+  siteInfo?: typeof site;
+  labels?: UiMessages;
+}) {
   return (
     <footer className="relative overflow-hidden border-t border-slate-200 bg-mist">
       <div className="absolute inset-0 bg-dot-grid opacity-60" aria-hidden />
@@ -13,25 +24,25 @@ export function Footer() {
           <div>
             <Logo className="h-9 w-auto" />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-500">
-              {site.description}
+              {siteInfo.description}
             </p>
             <p className="mt-4 text-xs uppercase tracking-[0.18em] text-slate-400">
-              {contact.region}
+              {contactInfo.region}
             </p>
           </div>
 
           {/* Explore */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Explore</h3>
+            <h3 className="text-sm font-semibold text-slate-900">{labels.exploreFooter}</h3>
             <ul className="mt-4 space-y-3">
-              {nav.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.href}>
-                  <Link
+                  <LocalizedLink
                     href={item.href}
                     className="text-sm text-slate-500 transition hover:text-bio-teal"
                   >
                     {item.label}
-                  </Link>
+                  </LocalizedLink>
                 </li>
               ))}
               <li>
@@ -41,7 +52,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm text-slate-500 transition hover:text-bio-teal"
                 >
-                  EboGenes Store ↗
+                  {labels.eboGenesStoreExternal}
                 </a>
               </li>
             </ul>
@@ -49,9 +60,9 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Contact</h3>
+            <h3 className="text-sm font-semibold text-slate-900">{labels.contact}</h3>
             <ul className="mt-4 space-y-3 text-sm text-slate-500">
-              {contact.emails.map((e) => (
+              {contactInfo.emails.map((e) => (
                 <li key={e}>
                   <a
                     href={`mailto:${e}`}
@@ -61,13 +72,13 @@ export function Footer() {
                   </a>
                 </li>
               ))}
-              {contact.phones.map((p) => (
+              {contactInfo.phones.map((p) => (
                 <li key={p}>{p}</li>
               ))}
               <li className="pt-1 leading-relaxed">
-                {contact.address.line1}
+                {contactInfo.address.line1}
                 <br />
-                {contact.address.line2}
+                {contactInfo.address.line2}
               </li>
             </ul>
           </div>
@@ -75,17 +86,17 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-slate-200 pt-8 text-xs text-slate-400 sm:flex-row sm:items-center">
           <p>
-            © {site.founded}–present {site.name}. All rights reserved.
+            © {siteInfo.founded}–present {siteInfo.name}. {labels.allRightsReserved}
           </p>
           <p>
-            For product ordering, visit the{" "}
+            {labels.orderingPrefix}{" "}
             <a
               href={links.eboGenesStore}
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-500 underline-offset-2 hover:text-bio-teal hover:underline"
             >
-              EboGenes store
+              {labels.orderingLink}
             </a>
             .
           </p>

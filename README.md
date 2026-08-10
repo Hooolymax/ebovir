@@ -54,6 +54,21 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
+## Internationalization
+
+The site supports English, Canadian French, and Simplified Chinese with one
+shared set of pages and components:
+
+- English keeps the existing unprefixed URLs, such as `/our-company`.
+- Canadian French uses `/fr`, such as `/fr/our-company`.
+- Simplified Chinese uses `/zh-CN`, such as `/zh-CN/our-company`.
+
+Localized copy is maintained as key-based overrides in
+`lib/i18n/translations/`. Stable facts such as URLs, product slugs, catalogue
+numbers, email addresses, and names remain in `lib/content.ts` as the single
+source of truth. Each language has its own metadata, canonical URL, hreflang
+alternates, HTML `lang` value, and sitemap entries.
+
 Other scripts:
 
 ```bash

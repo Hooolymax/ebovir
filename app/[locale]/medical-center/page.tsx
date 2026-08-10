@@ -3,15 +3,20 @@ import { PageHero } from "@/components/PageHero";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
-import { medicalCenter } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { buildPageMetadata } from "@/lib/i18n/metadata";
+import { isLocale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Medical Center",
-  description:
-    "The EBOVIR Medical Center — precision health management, advanced diagnostics, personalized consultation, and membership services, powered by the group's omics, diagnostics, and AI platforms.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(isLocale(locale) ? locale : "en", "medicalCenter", "/medical-center");
+}
 
-export default function MedicalCenterPage() {
+export default async function MedicalCenterPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : "en";
+  const content = getContent(locale);
+  const { medicalCenter } = content;
   return (
     <>
       <PageHero

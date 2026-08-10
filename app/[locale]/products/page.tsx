@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LocalizedLink } from "@/components/LocalizedLink";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
-import { exosomeProducts, links } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { ui } from "@/lib/i18n/ui";
+import { buildPageMetadata } from "@/lib/i18n/metadata";
+import { isLocale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Products",
-  description:
-    "Ebovir's line of naturally derived exosome products — botanical and fungal sources. Order through the EboGenes store.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(isLocale(locale) ? locale : "en", "products", "/products");
+}
 
-export default function ProductsPage() {
+export default async function ProductsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : "en";
+  const content = getContent(locale);
+  const { exosomeProducts, links } = content;
+  const labels = ui[locale];
   return (
     <section className="bg-white pb-20 pt-36 sm:pt-44">
       <Container>
@@ -36,7 +43,7 @@ export default function ProductsPage() {
             <div className="mt-14 border-t border-slate-200">
               {exosomeProducts.items.map((p, i) => (
                 <Reveal key={p.slug} delay={(i % 6) * 0.04}>
-                  <Link
+                  <LocalizedLink
                     href={`/products/${p.slug}`}
                     className="group flex items-baseline gap-4 border-b border-slate-200 py-7 transition"
                   >
@@ -60,7 +67,7 @@ export default function ProductsPage() {
                     >
                       →
                     </span>
-                  </Link>
+                  </LocalizedLink>
                 </Reveal>
               ))}
             </div>
@@ -69,10 +76,10 @@ export default function ProductsPage() {
             <Reveal>
               <div className="mt-12 flex flex-col gap-3 sm:flex-row">
                 <Button href={links.eboGenesStore} withArrow>
-                  Order on EboGenes Store
+                  {labels.orderStore}
                 </Button>
                 <Button href={links.contact} variant="secondary">
-                  Contact for specifications
+                  {labels.contactSpecifications}
                 </Button>
               </div>
             </Reveal>
@@ -82,17 +89,17 @@ export default function ProductsPage() {
           <aside className="hidden lg:block">
             <div className="sticky top-28">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                Product list
+                {labels.productList}
               </p>
               <ul className="mt-4 space-y-1 border-l border-slate-200">
                 {exosomeProducts.items.map((p) => (
                   <li key={p.slug}>
-                    <Link
+                    <LocalizedLink
                       href={`/products/${p.slug}`}
                       className="-ml-px block border-l-2 border-transparent py-1.5 pl-4 text-sm text-slate-500 transition hover:border-bio-cyan hover:text-bio-teal"
                     >
                       {p.name}
-                    </Link>
+                    </LocalizedLink>
                   </li>
                 ))}
               </ul>

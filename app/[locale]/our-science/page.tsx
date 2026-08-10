@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { LocalizedLink } from "@/components/LocalizedLink";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/visuals/Icon";
-import { scienceCards, services, products, links } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { buildPageMetadata } from "@/lib/i18n/metadata";
+import { isLocale } from "@/i18n/routing";
+import { ui } from "@/lib/i18n/ui";
 import dna3 from "@/public/assets/images/dna3.jpg";
 
-export const metadata: Metadata = {
-  title: "Our Science",
-  description:
-    "Molecular biology, whole genome sequencing, early cancer screening, and AI interpretation — the science behind Ebovir's precision-health platform.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(isLocale(locale) ? locale : "en", "science", "/our-science");
+}
 
 const iconMap: Record<string, "molecule" | "dna" | "ai"> = {
   molecule: "molecule",
@@ -21,7 +23,12 @@ const iconMap: Record<string, "molecule" | "dna" | "ai"> = {
   ai: "ai",
 };
 
-export default function OurSciencePage() {
+export default async function OurSciencePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : "en";
+  const content = getContent(locale);
+  const { scienceCards, services, products, links } = content;
+  const labels = ui[locale];
   return (
     <>
       {/* Hero — title + intro left, DNA photo right (50:50) */}
@@ -35,7 +42,7 @@ export default function OurSciencePage() {
               </Reveal>
               <Reveal delay={0.06}>
                 <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem]">
-                  The science behind precision health
+                  {scienceCards.heading}
                 </h1>
               </Reveal>
               <Reveal delay={0.12}>
@@ -44,11 +51,11 @@ export default function OurSciencePage() {
                 </p>
               </Reveal>
               <Reveal delay={0.2}>
-                <Link
+                <LocalizedLink
                   href={links.products}
                   className="mt-9 inline-flex w-fit items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
                 >
-                  View our products
+                  {locale === "fr" ? "Voir nos produits" : locale === "zh-CN" ? "查看我们的产品" : "View our products"}
                   <svg
                     className="h-4 w-4"
                     viewBox="0 0 24 24"
@@ -61,7 +68,7 @@ export default function OurSciencePage() {
                   >
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
-                </Link>
+                </LocalizedLink>
               </Reveal>
             </div>
 
@@ -70,7 +77,7 @@ export default function OurSciencePage() {
               <div className="relative min-h-[320px] overflow-hidden rounded-3xl border border-slate-200 shadow-card lg:h-full">
                 <Image
                   src={dna3}
-                  alt="DNA double helix illustrating Ebovir's genomic science"
+                  alt={locale === "fr" ? "Double hélice d’ADN illustrant la science génomique d’Ebovir" : locale === "zh-CN" ? "展示 Ebovir 基因组科学的 DNA 双螺旋" : "DNA double helix illustrating Ebovir's genomic science"}
                   fill
                   className="object-cover"
                   sizes="(min-width: 1024px) 560px, 100vw"
@@ -110,7 +117,7 @@ export default function OurSciencePage() {
       <section id="services" className="section scroll-mt-28 bg-mist">
         <Container>
           <SectionHeading
-            eyebrow="CRO Platform"
+            eyebrow={locale === "fr" ? "Plateforme CRO" : locale === "zh-CN" ? "CRO 平台" : "CRO Platform"}
             heading={services.heading}
             body={services.body}
           />
@@ -138,7 +145,7 @@ export default function OurSciencePage() {
       <section className="section bg-white">
         <Container>
           <SectionHeading
-            eyebrow="Research Products"
+            eyebrow={locale === "fr" ? "Produits de recherche" : locale === "zh-CN" ? "科研产品" : "Research Products"}
             heading={products.heading}
           />
           <div className="mt-12 grid gap-5 sm:grid-cols-3">
@@ -155,10 +162,10 @@ export default function OurSciencePage() {
           </div>
           <div className="mt-12 flex flex-col gap-3 sm:flex-row">
             <Button href={links.eboGenesStore} withArrow>
-              Shop genetic testing on EboGenes
+              {labels.shopGeneticTesting}
             </Button>
             <Button href={links.contact} variant="secondary">
-              Discuss research services
+              {labels.discussResearch}
             </Button>
           </div>
         </Container>

@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 import { GradientOrb } from "@/components/visuals/GradientOrb";
 import { finalCta } from "@/lib/content";
 
-export function FinalCta() {
+export function FinalCta({ content = finalCta }: { content?: typeof finalCta }) {
   return (
     <section className="section bg-white">
       <Container>
@@ -14,17 +14,17 @@ export function FinalCta() {
             <GradientOrb className="left-1/2 top-[-30%] h-[420px] w-[420px] -translate-x-1/2" />
             <div className="relative mx-auto max-w-2xl">
               <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                {finalCta.heading}
+                {content.heading}
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-                {finalCta.body}
+                {content.body}
               </p>
               <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-                <Button href={finalCta.primary.href} withArrow>
-                  {finalCta.primary.label}
+                <Button href={content.primary.href} withArrow>
+                  {content.primary.label}
                 </Button>
-                <Button href={finalCta.secondary.href} variant="secondary">
-                  {finalCta.secondary.label}
+                <Button href={content.secondary.href} variant="secondary">
+                  {content.secondary.label}
                 </Button>
               </div>
             </div>

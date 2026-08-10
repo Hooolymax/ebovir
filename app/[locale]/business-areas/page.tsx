@@ -3,15 +3,22 @@ import { PageHero } from "@/components/PageHero";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
-import { businessAreas, finalCta } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { buildPageMetadata } from "@/lib/i18n/metadata";
+import { isLocale } from "@/i18n/routing";
+import { ui } from "@/lib/i18n/ui";
 
-export const metadata: Metadata = {
-  title: "Business Areas",
-  description:
-    "The business areas EBOVIR covers — precision diagnostics & omics, AI healthcare, regenerative medicine, RNA/LNP drug development, exosome & aesthetic biotechnology, and premium medical services.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(isLocale(locale) ? locale : "en", "businessAreas", "/business-areas");
+}
 
-export default function BusinessAreasPage() {
+export default async function BusinessAreasPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : "en";
+  const content = getContent(locale);
+  const { businessAreas, finalCta } = content;
+  const labels = ui[locale];
   return (
     <>
       <PageHero
@@ -62,10 +69,10 @@ export default function BusinessAreasPage() {
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <Button href="/contact#partnership" withArrow>
-                  Partner With EBOVIR
+                  {labels.partnerWith}
                 </Button>
                 <Button href="/platforms" variant="secondary">
-                  Explore our platforms
+                  {labels.explorePlatforms}
                 </Button>
               </div>
             </div>

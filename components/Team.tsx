@@ -38,20 +38,20 @@ function MemberGrid({ members }: { members: readonly Member[] }) {
   );
 }
 
-export function Team() {
+export function Team({ content = team }: { content?: typeof team }) {
   return (
     <section className="section bg-mist">
       <Container>
         <SectionHeading
-          eyebrow={team.eyebrow}
-          heading={team.heading}
-          body={team.intro}
+          eyebrow={content.eyebrow}
+          heading={content.heading}
+          body={content.intro}
           align="center"
           gradient
         />
 
         <div className="mt-16 space-y-16">
-          {team.sections.map((section) => (
+          {content.sections.map((section) => (
             <div key={section.title}>
               <Reveal>
                 <div className="mb-8 border-l-2 border-bio-cyan pl-4">

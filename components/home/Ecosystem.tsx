@@ -1,8 +1,9 @@
-import Link from "next/link";
+import { LocalizedLink } from "@/components/LocalizedLink";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Icon } from "@/components/visuals/Icon";
 import { ecosystem } from "@/lib/content";
+import { ui, type UiMessages } from "@/lib/i18n/ui";
 
 type IconName = "dna" | "molecule" | "ai" | "lab";
 
@@ -12,12 +13,14 @@ function EntryCard({
   href,
   external,
   icon,
+  labels,
 }: {
   name: string;
   tag: string;
   href: string;
   external: boolean;
   icon: string;
+  labels: UiMessages;
 }) {
   const inner = (
     <>
@@ -35,7 +38,7 @@ function EntryCard({
       </span>
       <span className="mt-1 text-xs leading-snug text-slate-500">{tag}</span>
       <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-bio-teal transition group-hover:gap-1.5">
-        {external ? "Visit" : "Explore"}
+        {external ? labels.visit : labels.explore}
         <span aria-hidden>{external ? "↗" : "→"}</span>
       </span>
     </>
@@ -52,13 +55,19 @@ function EntryCard({
     );
   }
   return (
-    <Link href={href} className={cls}>
+    <LocalizedLink href={href} className={cls}>
       {inner}
-    </Link>
+    </LocalizedLink>
   );
 }
 
-export function Ecosystem() {
+export function Ecosystem({
+  content = ecosystem,
+  labels = ui.en,
+}: {
+  content?: typeof ecosystem;
+  labels?: UiMessages;
+}) {
   return (
     <section
       id="ecosystem"
@@ -70,17 +79,17 @@ export function Ecosystem() {
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-bio-teal">
-              {ecosystem.eyebrow}
+              {content.eyebrow}
             </p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-              {ecosystem.heading}
+              {content.heading}
             </h2>
           </Reveal>
           <Reveal delay={0.12}>
             <p className="mt-4 text-base leading-relaxed text-slate-600">
-              {ecosystem.subtitle}
+              {content.subtitle}
             </p>
           </Reveal>
         </div>
@@ -90,13 +99,13 @@ export function Ecosystem() {
           <div className="mt-14 flex flex-col items-center">
             <div className="relative rounded-2xl border border-bio-cyan/30 bg-white px-8 py-5 text-center shadow-glow">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-bio-teal">
-                Parent platform
+                {labels.parentPlatform}
               </p>
               <p className="mt-1 font-display text-3xl font-bold tracking-tight text-slate-900">
-                {ecosystem.parent.name}
+                {content.parent.name}
               </p>
               <p className="mx-auto mt-1 max-w-xs text-sm text-slate-500">
-                {ecosystem.parent.label}
+                {content.parent.label}
               </p>
             </div>
             {/* vertical connector down to the rail (desktop only) */}
@@ -111,7 +120,7 @@ export function Ecosystem() {
             className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent lg:block"
           />
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {ecosystem.cards.map((c, i) => (
+            {content.cards.map((c, i) => (
               <Reveal key={c.name} delay={i * 0.08}>
                 <EntryCard
                   name={c.name}
@@ -119,6 +128,7 @@ export function Ecosystem() {
                   href={c.href}
                   external={c.external}
                   icon={c.icon}
+                  labels={labels}
                 />
               </Reveal>
             ))}
@@ -128,18 +138,18 @@ export function Ecosystem() {
         {/* Hierarchy bridge — keeps platforms/business areas conceptually separate */}
         <Reveal>
           <div className="mt-12 flex flex-col items-center justify-center gap-x-8 gap-y-2 text-sm sm:flex-row">
-            <Link
+            <LocalizedLink
               href="/business-areas"
               className="inline-flex items-center gap-1.5 font-semibold text-slate-600 transition hover:text-bio-teal"
             >
-              Business areas <span aria-hidden>→</span>
-            </Link>
-            <Link
+              {labels.businessAreas} <span aria-hidden>→</span>
+            </LocalizedLink>
+            <LocalizedLink
               href="/products"
               className="inline-flex items-center gap-1.5 font-semibold text-slate-600 transition hover:text-bio-teal"
             >
-              Products &amp; solutions <span aria-hidden>→</span>
-            </Link>
+              {labels.productsSolutions} <span aria-hidden>→</span>
+            </LocalizedLink>
           </div>
         </Reveal>
       </Container>

@@ -3,15 +3,22 @@ import { PageHero } from "@/components/PageHero";
 import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
-import { platformsPage, ecosystem, finalCta } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { ui } from "@/lib/i18n/ui";
+import { buildPageMetadata } from "@/lib/i18n/metadata";
+import { isLocale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Platforms",
-  description:
-    "The four public-facing EBOVIR platforms — EboGenes, EboScience, EboMed AI, and EBOVIR Lab — spanning genetic health, exosome biotechnology, AI healthcare, and laboratory services.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(isLocale(locale) ? locale : "en", "platforms", "/platforms");
+}
 
-export default function PlatformsPage() {
+export default async function PlatformsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : "en";
+  const content = getContent(locale);
+  const { platformsPage, ecosystem, finalCta } = content;
+  const labels = ui[locale];
   return (
     <>
       <PageHero
@@ -47,7 +54,7 @@ export default function PlatformsPage() {
                       variant={c.external ? "primary" : "secondary"}
                       withArrow={!c.external}
                     >
-                      {c.external ? `Visit ${c.name} ↗` : "Explore EBOVIR Lab"}
+                      {c.external ? `${labels.visit} ${c.name} ↗` : `${labels.explore} EBOVIR Lab`}
                     </Button>
                   </div>
                 </div>
@@ -70,10 +77,10 @@ export default function PlatformsPage() {
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <Button href="/business-areas" withArrow>
-                  Explore business areas
+                  {labels.businessAreas}
                 </Button>
                 <Button href="/products" variant="secondary">
-                  View products & solutions
+                  {labels.viewProductsSolutions}
                 </Button>
               </div>
             </div>

@@ -4,21 +4,28 @@ import { Container } from "@/components/Container";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
 import { Icon } from "@/components/visuals/Icon";
-import { contact, inquiryTypes, links } from "@/lib/content";
+import { getContent } from "@/lib/i18n/content";
+import { ui } from "@/lib/i18n/ui";
+import { buildPageMetadata } from "@/lib/i18n/metadata";
+import { isLocale } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Get in touch with Ebovir Biotechnologie Inc. in the Greater Montreal area, or visit the EboGenes store to order genetic testing products.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return buildPageMetadata(isLocale(locale) ? locale : "en", "contact", "/contact");
+}
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: localeParam } = await params;
+  const locale = isLocale(localeParam) ? localeParam : "en";
+  const content = getContent(locale);
+  const { contact, inquiryTypes, links } = content;
+  const labels = ui[locale];
   return (
     <>
       <PageHero
-        eyebrow="Contact"
-        title="Let's talk precision health"
-        subtitle="Reach the Ebovir team for partnerships, research services, and general enquiries — or visit the EboGenes store to order genetic testing products."
+        eyebrow={labels.contact}
+        title={locale === "fr" ? "Parlons de santé de précision" : locale === "zh-CN" ? "让我们聊聊精准健康" : "Let's talk precision health"}
+        subtitle={locale === "fr" ? "Communiquez avec l’équipe d’Ebovir pour les partenariats, les services de recherche et les demandes générales, ou visitez la boutique EboGenes pour commander des tests génétiques." : locale === "zh-CN" ? "如需洽谈合作、科研服务或一般咨询，请联系 Ebovir 团队；如需订购基因检测产品，请访问 EboGenes 商店。" : "Reach the Ebovir team for partnerships, research services, and general enquiries — or visit the EboGenes store to order genetic testing products."}
       />
 
       <section id="request-information" className="section scroll-mt-28 bg-white">
@@ -30,7 +37,7 @@ export default function ContactPage() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-bio-cyan/10 text-bio-teal ring-1 ring-bio-cyan/20">
                   <Icon name="spark" className="h-6 w-6" />
                 </div>
-                <h2 className="mt-5 text-lg font-semibold text-slate-900">Email</h2>
+                <h2 className="mt-5 text-lg font-semibold text-slate-900">{labels.email}</h2>
                 <ul className="mt-3 space-y-2">
                   {contact.emails.map((e) => (
                     <li key={e}>
@@ -52,7 +59,7 @@ export default function ContactPage() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-bio-cyan/10 text-bio-teal ring-1 ring-bio-cyan/20">
                   <Icon name="globe" className="h-6 w-6" />
                 </div>
-                <h2 className="mt-5 text-lg font-semibold text-slate-900">Phone</h2>
+                <h2 className="mt-5 text-lg font-semibold text-slate-900">{labels.phone}</h2>
                 <ul className="mt-3 space-y-2">
                   {contact.phones.map((p) => (
                     <li key={p} className="text-sm text-slate-600">
@@ -70,7 +77,7 @@ export default function ContactPage() {
                   <Icon name="lab" className="h-6 w-6" />
                 </div>
                 <h2 className="mt-5 text-lg font-semibold text-slate-900">
-                  Location
+                  {labels.location}
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
                   {contact.address.line1}
@@ -125,14 +132,14 @@ export default function ContactPage() {
             <div className="mt-10 flex flex-col items-center justify-between gap-6 rounded-3xl border border-slate-200 bg-mist p-8 sm:flex-row sm:p-10">
               <div>
                 <h2 className="font-display text-2xl font-semibold text-slate-900">
-                  Looking to order genetic testing?
+                  {labels.orderQuestion}
                 </h2>
                 <p className="mt-2 text-sm text-slate-600">
-                  Browse and purchase products through the EboGenes store.
+                  {labels.orderHelp}
                 </p>
               </div>
               <Button href={links.eboGenesStore} withArrow>
-                Visit EboGenes Store
+                {labels.visitStore}
               </Button>
             </div>
           </Reveal>

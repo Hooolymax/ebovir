@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { LocalizedLink } from "@/components/LocalizedLink";
 import logo from "@/public/assets/logo.png";
 
 /**
@@ -14,7 +14,7 @@ export function Logo({
   priority?: boolean;
 }) {
   return (
-    <Link
+    <LocalizedLink
       href="/"
       aria-label="Ebovir — home"
       className="inline-flex items-center"
@@ -25,6 +25,6 @@ export function Logo({
         className={className}
         priority={priority}
       />
-    </Link>
+    </LocalizedLink>
   );
 }

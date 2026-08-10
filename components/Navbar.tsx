@@ -1,9 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
+import NextLink from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { mainNav, type NavNode, type NavLink } from "@/lib/content";
+import { Link, usePathname } from "@/i18n/navigation";
+import { ui, type UiMessages } from "@/lib/i18n/ui";
+import type { Locale } from "@/i18n/routing";
 import { Logo } from "./Logo";
 
 /* Small chevron used on dropdown triggers. */
@@ -221,10 +224,10 @@ function DesktopItem({
 
   if (!hasPanel) {
     return (
-      <li>
+      <li className="shrink-0">
         <Link
           href={node.href}
-          className={`rounded-full px-3 py-2 text-sm font-medium transition ${
+          className={`whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition ${
             active
               ? "bg-bio-cyan/10 text-bio-teal"
               : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -237,13 +240,13 @@ function DesktopItem({
   }
 
   return (
-    <li className="relative" onMouseEnter={onOpen} onMouseLeave={onClose}>
+    <li className="relative shrink-0" onMouseEnter={onOpen} onMouseLeave={onClose}>
       <button
         type="button"
         aria-haspopup="true"
         aria-expanded={open}
         onClick={onToggle}
-        className={`inline-flex items-center gap-0.5 rounded-full px-3 py-2 text-sm font-medium transition ${
+        className={`inline-flex items-center gap-0.5 whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium transition ${
           active || open
             ? "bg-bio-cyan/10 text-bio-teal"
             : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -334,7 +337,100 @@ function MobileItem({ node }: { node: NavNode }) {
 /* ------------------------------------------------------------------ */
 /* Navbar                                                              */
 /* ------------------------------------------------------------------ */
-export function Navbar() {
+function LanguageSwitcher({ label }: { label: string }) {
+  const locale = useLocale() as Locale;
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const switcherRef = useRef<HTMLDivElement>(null);
+  const languages = [
+    { locale: "en", shortLabel: "EN", label: "English" },
+    { locale: "fr", shortLabel: "FR", label: "Français" },
+    { locale: "zh-CN", shortLabel: "中文", label: "中文" },
+  ] as const;
+  const current = languages.find((item) => item.locale === locale)!;
+
+  useEffect(() => {
+    if (!open) return;
+
+    const closeOnOutsideClick = (event: MouseEvent) => {
+      if (!switcherRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("mousedown", closeOnOutsideClick);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("mousedown", closeOnOutsideClick);
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
+  return (
+    <div ref={switcherRef} className="relative" aria-label={label}>
+      <button
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        aria-label={`${label}: ${current.label}`}
+        onClick={() => setOpen((value) => !value)}
+        className={`inline-flex h-9 min-w-[4.25rem] items-center justify-center gap-1.5 rounded-full border px-3 text-xs font-semibold transition ${
+          open
+            ? "border-bio-cyan/40 bg-bio-cyan/10 text-bio-teal"
+            : "border-slate-200 bg-white text-slate-600 hover:border-bio-cyan/40 hover:text-bio-teal"
+        }`}
+      >
+        <svg
+          aria-hidden
+          className="h-3.5 w-3.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.8}
+        >
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18" />
+        </svg>
+        {current.shortLabel}
+        <Chevron open={open} />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className={`${PANEL_CARD} absolute right-0 top-full z-[60] mt-2 w-36 p-1.5`}
+        >
+          {languages.map((item) => (
+            <NextLink
+              key={item.locale}
+              href={item.locale === "en" ? pathname : `/${item.locale}${pathname === "/" ? "" : pathname}`}
+              role="menuitem"
+              aria-current={locale === item.locale ? "page" : undefined}
+              onClick={() => setOpen(false)}
+              className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition ${
+                locale === item.locale
+                  ? "bg-bio-cyan/10 font-semibold text-bio-teal"
+                  : "text-slate-600 hover:bg-mist hover:text-bio-teal"
+              }`}
+            >
+              <span>{item.label}</span>
+              {locale === item.locale && <span aria-hidden>✓</span>}
+            </NextLink>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Navbar({
+  navItems = mainNav,
+  labels = ui.en,
+}: {
+  navItems?: NavNode[];
+  labels?: UiMessages;
+}) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -383,13 +479,15 @@ export function Navbar() {
           : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-20 max-w-content items-center justify-between px-6 py-4 sm:px-8">
+      <nav className="mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-5 px-6 py-4 sm:px-8">
         {/* Logo */}
-        <Logo priority className="h-11 w-auto sm:h-12" />
+        <div className="shrink-0">
+          <Logo priority className="h-11 w-auto sm:h-12" />
+        </div>
 
         {/* Desktop nav */}
-        <ul className="hidden items-center gap-0.5 xl:flex">
-          {mainNav.map((node) => (
+        <ul className="hidden shrink-0 items-center gap-1 min-[1400px]:flex">
+          {navItems.map((node) => (
             <DesktopItem
               key={node.label}
               node={node}
@@ -402,13 +500,14 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden xl:block">
+        <div className="hidden shrink-0 items-center gap-2 min-[1400px]:flex">
           <Link
             href="/contact#request-information"
-            className="btn-primary !px-4 !py-2 !text-[13px]"
+            className="btn-primary shrink-0 whitespace-nowrap !px-4 !py-2 !text-[13px]"
           >
-            Request Info
+            {labels.requestInfo}
           </Link>
+          <LanguageSwitcher label={labels.language} />
         </div>
 
         {/* Mobile toggle */}
@@ -417,7 +516,7 @@ export function Navbar() {
           aria-label="Toggle menu"
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 xl:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 min-[1400px]:hidden"
         >
           <svg
             className="h-5 w-5"
@@ -438,16 +537,19 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-slate-200 bg-white/97 backdrop-blur-xl xl:hidden">
+        <div className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-slate-200 bg-white/97 backdrop-blur-xl min-[1400px]:hidden">
           <div className="mx-auto max-w-content px-6 py-4">
-            {mainNav.map((node) => (
+            <div className="mb-3 flex justify-end px-3">
+              <LanguageSwitcher label={labels.language} />
+            </div>
+            {navItems.map((node) => (
               <MobileItem key={node.label} node={node} />
             ))}
             <Link
               href="/contact#request-information"
               className="btn-primary mt-4 w-full"
             >
-              Request Info
+              {labels.requestInfo}
             </Link>
           </div>
         </div>
