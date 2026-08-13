@@ -38,6 +38,10 @@ const nextConfig = {
           source: "/products/:slug",
           destination: "/en/products/:slug",
         },
+        {
+          source: "/medical-center/strategic-partners/:slug",
+          destination: "/en/medical-center/strategic-partners/:slug",
+        },
       ],
     };
   },

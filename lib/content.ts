@@ -192,6 +192,7 @@ export const mainNav: NavNode[] = [
       { label: "Advanced Diagnostics", href: "/medical-center#advanced-diagnostics" },
       { label: "Personalized Consultation", href: "/medical-center#consultation" },
       { label: "Membership Services", href: "/medical-center#membership" },
+      { label: "Strategic Partner", href: "/medical-center/strategic-partners/dr-jerry-leung-clinic" },
       { label: "Book a Consultation", href: "/medical-center#book" },
     ],
   },
@@ -858,6 +859,64 @@ export const medicalCenter = {
       body: "Ongoing membership programs offering continuity of care, periodic reassessment, and coordinated access to EBOVIR services.",
     },
   ],
+  strategicPartners: {
+    id: "strategic-partners",
+    eyebrow: "High-End Strategic Partner",
+    heading: "Extending precision health through trusted clinical collaboration",
+    intro:
+      "EBOVIR works with select clinical partners whose approach complements our commitment to preventive, personalized, and data-informed health management.",
+    partner: {
+      name: "Dr. Jerry Leung Medical Club",
+      location: "Markham, Ontario",
+      summary:
+        "A private medical and wellness club bringing physician-led preventive care, comprehensive health assessments, concierge family medicine, medical aesthetics, fitness, and wellness together in one integrated setting.",
+      cta: "Discover our strategic partner",
+      href: "/medical-center/strategic-partners/dr-jerry-leung-clinic",
+    },
+  },
+  partnerDetail: {
+    eyebrow: "Medical Center · Strategic Partner",
+    badge: "High-End Strategic Partner",
+    title: "Dr. Jerry Leung Medical Club",
+    intro:
+      "A physician-led private medical and wellness club in Markham, Ontario, built around preventive care, personalized guidance, and an integrated member experience.",
+    heroCta: "Visit clinic website",
+    overviewHeading: "A private medical club designed around proactive health",
+    overviewBody:
+      "Dr. Jerry Leung Medical Club brings concierge family medicine, comprehensive health assessment, medical aesthetics, wellness, fitness, and member amenities together under one roof. Its model emphasizes early insight, continuity of care, and practical health planning led by a dedicated medical team.",
+    partnershipHeading: "Why the partnership aligns",
+    partnershipBody:
+      "The club’s prevention-first, physician-led model aligns with EBOVIR’s focus on precision health, advanced diagnostics, and personalized decision support. This strategic relationship connects complementary strengths across biotechnology, health intelligence, clinical guidance, and premium wellness experiences.",
+    servicesHeading: "A connected approach to health and wellness",
+    services: [
+      {
+        name: "Comprehensive Health Assessment",
+        body: "Coordinated evaluations may include bloodwork, imaging, cardiac, hormonal, metabolic, bone-health, and other physician-directed assessments, followed by personalized review and planning.",
+      },
+      {
+        name: "Concierge Medical Care",
+        body: "A continuity-focused model with direct physician access, family medicine, private laboratory and pharmacy coordination, and personalized follow-up throughout the year.",
+      },
+      {
+        name: "Integrated Wellness Experience",
+        body: "Medical aesthetics, fitness, spa and recovery amenities, nutrition support, and member spaces are brought together within a private club environment.",
+      },
+    ],
+    founderHeading: "Physician-led by Dr. Jerry Leung",
+    founderBody:
+      "Dr. Jerry Leung is a Toronto-area family physician with more than 15 years of experience. His stated philosophy centres on prevention, performance, early detection, and personalized care that supports both medical needs and long-term well-being.",
+    facts: [
+      { label: "Location", value: "Markham, Ontario" },
+      { label: "Care model", value: "Private, physician-led membership" },
+      { label: "Clinical focus", value: "Prevention and personalized care" },
+    ],
+    visitHeading: "Explore Dr. Jerry Leung Medical Club",
+    visitBody:
+      "Visit the clinic’s official website for current information about its medical services, health assessments, facilities, team, membership, and appointments.",
+    visitCta: "Visit official website",
+    sourceNote:
+      "Clinic information on this page is summarized from the Dr. Jerry Leung Medical Club official website. Services are provided independently by the clinic and may change; contact the clinic directly for current availability and medical guidance.",
+  },
   book: {
     id: "book",
     heading: "Book a consultation",

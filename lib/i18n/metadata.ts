@@ -7,6 +7,7 @@ export type PageKey =
   | "platforms"
   | "science"
   | "medicalCenter"
+  | "strategicPartner"
   | "company"
   | "news"
   | "products";
@@ -18,6 +19,7 @@ const copy: Record<Locale, Record<PageKey, { title: string; description: string 
     platforms: { title: "Platforms", description: "The four public-facing EBOVIR platforms — EboGenes, EboScience, EboMed AI, and EBOVIR Lab — spanning genetic health, exosome biotechnology, AI healthcare, and laboratory services." },
     science: { title: "Our Science", description: "Molecular biology, whole genome sequencing, early cancer screening, and AI interpretation — the science behind Ebovir's precision-health platform." },
     medicalCenter: { title: "Medical Center", description: "The EBOVIR Medical Center — precision health management, advanced diagnostics, personalized consultation, and membership services, powered by the group's omics, diagnostics, and AI platforms." },
+    strategicPartner: { title: "Dr. Jerry Leung Medical Club | Strategic Partner", description: "Meet Dr. Jerry Leung Medical Club, an EBOVIR high-end strategic partner in Markham offering physician-led preventive care, comprehensive health assessments, concierge medicine, and integrated wellness." },
     company: { title: "Our Company", description: "Ebovir Biotechnologies Inc. — a Montreal biotechnology company founded in 2021 and incubated from McGill University, driving innovation in precision medicine." },
     news: { title: "News & Insights", description: "News and insights from the EBOVIR group — company updates, scientific insights, product announcements, industry perspectives, and clinical & research news." },
     products: { title: "Products", description: "Ebovir's line of naturally derived exosome products — botanical and fungal sources. Order through the EboGenes store." },
@@ -28,6 +30,7 @@ const copy: Record<Locale, Record<PageKey, { title: string; description: string 
     platforms: { title: "Plateformes", description: "Les quatre plateformes publiques d’EBOVIR — EboGenes, EboScience, EboMed AI et EBOVIR Lab — couvrent la santé génétique, les exosomes, l’IA en santé et les services de laboratoire." },
     science: { title: "Notre science", description: "Biologie moléculaire, séquençage du génome entier, dépistage précoce du cancer et interprétation par IA : la science derrière la plateforme de santé de précision d’Ebovir." },
     medicalCenter: { title: "Centre médical", description: "Le Centre médical EBOVIR offre une gestion de la santé de précision, un diagnostic avancé, des consultations personnalisées et des services aux membres, propulsés par les plateformes d’omiques, de diagnostic et d’IA du groupe." },
+    strategicPartner: { title: "Dr. Jerry Leung Medical Club | Partenaire stratégique", description: "Découvrez le Dr. Jerry Leung Medical Club, partenaire stratégique haut de gamme d’EBOVIR à Markham, qui réunit soins préventifs dirigés par un médecin, bilans de santé complets, médecine concierge et mieux-être intégré." },
     company: { title: "Notre entreprise", description: "Ebovir Biotechnologies Inc. est une entreprise montréalaise de biotechnologie fondée en 2021 et incubée à l’Université McGill, qui stimule l’innovation en médecine de précision." },
     news: { title: "Nouvelles et perspectives", description: "Nouvelles et perspectives du groupe EBOVIR : actualités de l’entreprise, science, produits, industrie, recherche et collaborations cliniques." },
     products: { title: "Produits", description: "La gamme de produits d’exosomes d’origine naturelle d’Ebovir, provenant de sources végétales et fongiques. Commandez dans la boutique EboGenes." },
@@ -38,6 +41,7 @@ const copy: Record<Locale, Record<PageKey, { title: string; description: string 
     platforms: { title: "平台", description: "EBOVIR 的四个对外平台 EboGenes、EboScience、EboMed AI 和 EBOVIR Lab，覆盖遗传健康、外泌体生物技术、人工智能医疗和实验室服务。" },
     science: { title: "我们的科学", description: "分子生物学、全基因组测序、癌症早期筛查和人工智能解读，构成 Ebovir 精准健康平台背后的科学基础。" },
     medicalCenter: { title: "医疗中心", description: "EBOVIR 医疗中心依托集团的组学、诊断和人工智能平台，提供精准健康管理、先进诊断、个性化咨询和会员服务。" },
+    strategicPartner: { title: "Dr. Jerry Leung Medical Club｜高端战略合作伙伴", description: "了解 EBOVIR 位于 Markham 的高端战略合作伙伴 Dr. Jerry Leung Medical Club，其服务涵盖医生主导的预防医疗、综合健康评估、礼宾医疗与一体化健康管理。" },
     company: { title: "关于公司", description: "Ebovir Biotechnologies Inc. 是一家位于蒙特利尔的生物技术公司，成立于 2021 年并源自麦吉尔大学孵化，致力于推动精准医疗创新。" },
     news: { title: "新闻与洞察", description: "来自 EBOVIR 集团的公司动态、科学洞察、产品公告、行业观点以及临床与科研新闻。" },
     products: { title: "产品", description: "Ebovir 天然来源外泌体产品系列，涵盖植物和真菌来源产品。通过 EboGenes 商店订购。" },

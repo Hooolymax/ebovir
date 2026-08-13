@@ -12,6 +12,7 @@ const routes = [
   "/business-areas",
   "/products",
   "/medical-center",
+  "/medical-center/strategic-partners/dr-jerry-leung-clinic",
   "/news",
   "/contact",
   ...exosomeProducts.items.map((product) => `/products/${product.slug}`),
