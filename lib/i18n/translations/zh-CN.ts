@@ -59,7 +59,8 @@ export const zhCN: Record<string, string> = {
   "mainNav.5.children.4.label": "会员服务",
   "mainNav.5.children.5.label": "战略合作伙伴",
   "mainNav.5.children.6.label": "预约咨询",
-  "contact.phones.0": "+1 450-688-8377 转 2209",
+  "contact.phones.0": "+1 450-688-8377 转 2126",
+  "contact.phones.1": "+1 450-688-8377 转 2311（128 室）",
   "contact.address.country": "加拿大",
   "contact.region": "加拿大魁北克省大蒙特利尔地区",
   "hero.eyebrow": "精准健康 · 基因组学 · 人工智能",
@@ -306,7 +307,7 @@ export const zhCN: Record<string, string> = {
   "virusProducts.items.3.summary": "GFP 报告病毒，供货滴度 1×10⁸ PFU/ml。",
 
   "products.heading": "科研产品",
-  "products.note": "ebovir.ca 上提供的产品详情有限；以下为中性占位描述。（需要确认。）",
+  "products.note": "ebovir.com 上提供的产品详情有限；以下为中性占位描述。（需要确认。）",
   "products.items.0.title": "外泌体",
   "products.items.0.body": "外泌体相关科研材料。",
   "products.items.1.title": "病毒学工具",

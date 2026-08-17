@@ -17,7 +17,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const baseUrl = "https://www.ebovir.ca";
+const baseUrl = "https://www.ebovir.com";
 
 const baseMetadata: Metadata = {
   metadataBase: new URL(baseUrl),

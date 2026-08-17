@@ -58,7 +58,8 @@ export const frCA: Record<string, string> = {
   "mainNav.5.children.4.label": "Services aux membres",
   "mainNav.5.children.5.label": "Partenaire stratégique",
   "mainNav.5.children.6.label": "Prendre rendez-vous",
-  "contact.phones.0": "+1 450-688-8377, poste 2209",
+  "contact.phones.0": "+1 450-688-8377, poste 2126",
+  "contact.phones.1": "+1 450-688-8377, poste 2311 (salle 128)",
   "contact.address.country": "Canada",
   "contact.region": "Grande région de Montréal, Québec, Canada",
   "hero.eyebrow": "Santé de précision · Génomique · IA",
@@ -303,7 +304,7 @@ export const frCA: Record<string, string> = {
   "virusProducts.items.3.summary": "Virus rapporteur GFP fourni à 1×10⁸ PFU/ml.",
 
   "products.heading": "Produits de recherche",
-  "products.note": "Les renseignements détaillés sur les produits sont limités sur ebovir.ca; les descriptions ci-dessous sont des formulations neutres. (À confirmer.)",
+  "products.note": "Les renseignements détaillés sur les produits sont limités sur ebovir.com; les descriptions ci-dessous sont des formulations neutres. (À confirmer.)",
   "products.items.0.title": "Exosomes",
   "products.items.0.body": "Matériel de recherche à base d’exosomes.",
   "products.items.1.title": "Outils de virologie",

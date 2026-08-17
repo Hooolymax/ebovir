@@ -21,7 +21,7 @@ export const links = {
   eboGenesStore: "https://ebogenes.com",
   eboScience: "https://eboscience.com",
   eboMedAi: "https://www.e-ai.ca",
-  ebovirSite: "https://www.ebovir.ca",
+  ebovirSite: "https://www.ebovir.com",
   contact: "/contact",
   science: "/our-science",
   company: "/our-company",
@@ -206,7 +206,13 @@ export const nav = mainNav.map((n) => ({ label: n.label, href: n.href }));
 export const contact = {
   // All confirmed on ebovir.ca
   emails: ["info@ebovir.ca", "testcenter@ebovir.ca"],
-  phones: ["+1 450-688-8377 ext. 2209", "+1 514-980-0168"],
+  // Extension updated 2026-08-17: the main line is now ext. 2126 (was 2209).
+  // Room 128 has its own extension, 2311.
+  phones: [
+    "+1 450-688-8377 ext. 2126",
+    "+1 450-688-8377 ext. 2311 (Room 128)",
+    "+1 514-980-0168",
+  ],
   address: {
     line1: "117-500 Boulevard Cartier Ouest",
     line2: "Laval, Québec, H7V 5B7",
@@ -849,7 +855,7 @@ export const virusProducts = {
 export const products = {
   // Confirmed categories on ebovir.ca (no detailed copy published)
   heading: "Research Products",
-  note: "Product detail is limited on ebovir.ca — descriptions below are neutral placeholders. (Needs confirmation.)",
+  note: "Product detail is limited on ebovir.com — descriptions below are neutral placeholders. (Needs confirmation.)",
   items: [
     { title: "Exosome", body: "Exosome-based research materials." },
     { title: "Virology Tools", body: "Tools supporting virology research workflows." },

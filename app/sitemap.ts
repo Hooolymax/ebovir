@@ -3,7 +3,7 @@ import { exosomeProducts, virusProducts } from "@/lib/content";
 import { routing, type Locale } from "@/i18n/routing";
 import { localizedUrl } from "@/lib/i18n/metadata";
 
-const baseUrl = "https://www.ebovir.ca";
+const baseUrl = "https://www.ebovir.com";
 const routes = [
   "/",
   "/our-company",
