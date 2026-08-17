@@ -10,7 +10,8 @@ export type PageKey =
   | "strategicPartner"
   | "company"
   | "news"
-  | "products";
+  | "products"
+  | "researchViruses";
 
 const copy: Record<Locale, Record<PageKey, { title: string; description: string }>> = {
   en: {
@@ -23,6 +24,7 @@ const copy: Record<Locale, Record<PageKey, { title: string; description: string 
     company: { title: "Our Company", description: "Ebovir Biotechnologies Inc. — a Montreal biotechnology company founded in 2021 and incubated from McGill University, driving innovation in precision medicine." },
     news: { title: "News & Insights", description: "News and insights from the EBOVIR group — company updates, scientific insights, product announcements, industry perspectives, and clinical & research news." },
     products: { title: "Products", description: "Ebovir's line of naturally derived exosome products — botanical and fungal sources. Order through the EboGenes store." },
+    researchViruses: { title: "Research-Grade Viruses", description: "Ebovir's titred reporter virus stocks — GFP and firefly luciferase reporters for infection kinetics, antiviral screening, and live-cell imaging. For laboratory research use only." },
   },
   fr: {
     businessAreas: { title: "Secteurs d’activité", description: "Les secteurs d’activité d’EBOVIR : diagnostic de précision et omiques, IA en santé, médecine régénérative, développement de médicaments à ARN/LNP, exosomes et biotechnologie esthétique, et services médicaux haut de gamme." },
@@ -34,6 +36,7 @@ const copy: Record<Locale, Record<PageKey, { title: string; description: string 
     company: { title: "Notre entreprise", description: "Ebovir Biotechnologies Inc. est une entreprise montréalaise de biotechnologie fondée en 2021 et incubée à l’Université McGill, qui stimule l’innovation en médecine de précision." },
     news: { title: "Nouvelles et perspectives", description: "Nouvelles et perspectives du groupe EBOVIR : actualités de l’entreprise, science, produits, industrie, recherche et collaborations cliniques." },
     products: { title: "Produits", description: "La gamme de produits d’exosomes d’origine naturelle d’Ebovir, provenant de sources végétales et fongiques. Commandez dans la boutique EboGenes." },
+    researchViruses: { title: "Virus de qualité recherche", description: "Les stocks de virus rapporteurs titrés d’Ebovir — rapporteurs GFP et luciférase de luciole pour la cinétique d’infection, le criblage antiviral et l’imagerie sur cellules vivantes. Réservé à la recherche en laboratoire." },
   },
   "zh-CN": {
     businessAreas: { title: "业务领域", description: "EBOVIR 的业务领域涵盖精准诊断与组学、人工智能医疗、再生医学、RNA/LNP 药物开发、外泌体与医美生物技术以及高端医疗服务。" },
@@ -45,6 +48,7 @@ const copy: Record<Locale, Record<PageKey, { title: string; description: string 
     company: { title: "关于公司", description: "Ebovir Biotechnologies Inc. 是一家位于蒙特利尔的生物技术公司，成立于 2021 年并源自麦吉尔大学孵化，致力于推动精准医疗创新。" },
     news: { title: "新闻与洞察", description: "来自 EBOVIR 集团的公司动态、科学洞察、产品公告、行业观点以及临床与科研新闻。" },
     products: { title: "产品", description: "Ebovir 天然来源外泌体产品系列，涵盖植物和真菌来源产品。通过 EboGenes 商店订购。" },
+    researchViruses: { title: "科研级病毒", description: "Ebovir 已定量的报告病毒产品，包含 GFP 与萤火虫荧光素酶报告基因，适用于感染动力学、抗病毒筛选和活细胞成像。仅供实验室研究使用。" },
   },
 };
 

@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
-import { exosomeProducts as englishProducts } from "@/lib/content";
+import {
+  exosomeProducts as englishExosomes,
+  virusProducts as englishViruses,
+} from "@/lib/content";
 import { getContent } from "@/lib/i18n/content";
 import { isLocale, type Locale } from "@/i18n/routing";
 
@@ -71,8 +74,15 @@ export async function POST(request: Request) {
   const localeValue = cleanString(input.locale, 10);
   const locale: Locale = isLocale(localeValue) ? localeValue : "en";
   const productSlug = cleanString(input.productSlug, 160);
-  const englishProduct = englishProducts.items.find((item) => item.slug === productSlug);
-  const localizedProduct = getContent(locale).exosomeProducts.items.find((item) => item.slug === productSlug);
+  // Requests can come from either catalogue — exosomes or research-grade viruses.
+  const localizedContent = getContent(locale);
+  const findBySlug = <T extends { slug: string }>(items: readonly T[]) =>
+    items.find((item) => item.slug === productSlug);
+  const englishProduct =
+    findBySlug(englishExosomes.items) ?? findBySlug(englishViruses.items);
+  const localizedProduct =
+    findBySlug(localizedContent.exosomeProducts.items) ??
+    findBySlug(localizedContent.virusProducts.items);
   if (!englishProduct || !localizedProduct) return jsonError(400, "invalid_product");
 
   const name = cleanString(input.name, 120);
@@ -109,7 +119,7 @@ export async function POST(request: Request) {
   const rows = [
     ["Product", `${localizedProduct.name} / ${englishProduct.name}`],
     ["Product name", englishProduct.productName],
-    ["Catalogue No.", englishProduct.catNo],
+    ["Catalogue No.", englishProduct.catNo || "—"],
     ["Locale", locale],
     ["Name", name],
     ["Email", email],

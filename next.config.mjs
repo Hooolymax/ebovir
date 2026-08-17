@@ -22,6 +22,7 @@ const nextConfig = {
       "/platforms",
       "/business-areas",
       "/products",
+      "/research-viruses",
       "/medical-center",
       "/news",
       "/contact",
@@ -37,6 +38,10 @@ const nextConfig = {
         {
           source: "/products/:slug",
           destination: "/en/products/:slug",
+        },
+        {
+          source: "/research-viruses/:slug",
+          destination: "/en/research-viruses/:slug",
         },
         {
           source: "/medical-center/strategic-partners/:slug",

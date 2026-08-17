@@ -28,6 +28,7 @@ export const links = {
   platforms: "/platforms",
   businessAreas: "/business-areas",
   products: "/products",
+  researchViruses: "/research-viruses",
   medicalCenter: "/medical-center",
   news: "/news",
   home: "/",
@@ -157,6 +158,7 @@ export const mainNav: NavNode[] = [
           { label: "EBOVIR Lab Services", href: "/our-science#services" },
           { label: "RNA/LNP Development", href: "/business-areas#rna-lnp" },
           { label: "Exosome Ingredients", href: "/products" },
+          { label: "Research-Grade Viruses", href: "/research-viruses" },
           { label: "Research Collaboration", href: "/contact#partnership" },
         ],
       },
@@ -754,6 +756,92 @@ export const exosomeProducts = {
       source: "Mugwort (Artemisia vulgaris)",
       sourceShort: "Derived from mugwort (Artemisia vulgaris).",
       contains: "Normal exosomes derived from mugwort in PBS.",
+    },
+  ],
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* RESEARCH-GRADE VIRUSES — reporter virus line, parallel to exosomes  */
+/* Same shape as exosomeCommon/exosomeProducts: shared specifications  */
+/* live in `virusCommon`, per-product differences in `virusProducts`.  */
+/*                                                                     */
+/* TODO (awaiting client copy): `overview`, `applications`, and each   */
+/* item's `summary` are placeholders — replace with the supplied       */
+/* product descriptions. Catalogue numbers have not been issued yet;   */
+/* `catNo` is intentionally empty and is hidden wherever it is blank.  */
+/* ------------------------------------------------------------------ */
+export const virusCommon = {
+  // Needs confirmation — placeholder pending the client's product copy.
+  overview:
+    "Research-grade reporter viruses supplied as titred viral stocks for laboratory use. Each preparation carries a fluorescent or bioluminescent reporter gene, allowing infection, replication, and treatment response to be followed directly in cell culture without secondary staining. Stocks are produced and titred under controlled conditions and shipped frozen.",
+  // Needs confirmation — placeholder pending the client's product copy.
+  applications:
+    "Infection and replication kinetics, antiviral compound screening, neutralising antibody assays, host–pathogen interaction studies, and live-cell imaging.",
+  form: "Frozen liquid",
+  storage:
+    "Store at -80°C on arrival. Avoid repeated freeze-and-thaw cycles; aliquot on first thaw.",
+  defrost:
+    "Thaw rapidly at 37°C, then place immediately on ice. Mix gently before use — do not vortex.",
+  safety:
+    "Handle at the biosafety level required for the parent virus in your jurisdiction, in a certified biological safety cabinet, by trained personnel. Use universal precautions and decontaminate all waste.",
+  intendedUse:
+    "For laboratory research use only. Not for diagnostic, therapeutic, or human or veterinary use.",
+} as const;
+
+export const virusProducts = {
+  eyebrow: "Products",
+  title: "Research-grade reporter viruses",
+  subtitle:
+    "Titred reporter virus stocks for laboratory research. Each datasheet below summarizes the reporter, titre, and handling requirements — our laboratory team responds to every request directly.",
+  note: "For laboratory research use only. Not for diagnostic or therapeutic use, and not for administration to humans or animals.",
+  items: [
+    {
+      slug: "hs-gfp",
+      name: "HS-GFP",
+      productName: "HS-GFP 1×10⁷ PFU/ml",
+      kind: "Reporter virus",
+      reporter: "GFP",
+      concentration: "1×10⁷ PFU/ml",
+      price: "$1,199.00",
+      catNo: "",
+      // Needs confirmation — placeholder pending the client's product copy.
+      summary: "GFP reporter virus supplied at 1×10⁷ PFU/ml.",
+    },
+    {
+      slug: "ia-gfp",
+      name: "IA-GFP",
+      productName: "IA-GFP 1×10⁶ PFU/ml",
+      kind: "Reporter virus",
+      reporter: "GFP",
+      concentration: "1×10⁶ PFU/ml",
+      price: "$1,099.00",
+      catNo: "",
+      // Needs confirmation — placeholder pending the client's product copy.
+      summary: "GFP reporter virus supplied at 1×10⁶ PFU/ml.",
+    },
+    {
+      slug: "rs-fireflyluc",
+      name: "RS-FireflyLuc",
+      productName: "RS-FireflyLuc 1×10⁶ PFU/ml",
+      kind: "Reporter virus",
+      reporter: "Firefly luciferase",
+      concentration: "1×10⁶ PFU/ml",
+      price: "$899.00",
+      catNo: "",
+      // Needs confirmation — placeholder pending the client's product copy.
+      summary: "Firefly luciferase reporter virus supplied at 1×10⁶ PFU/ml.",
+    },
+    {
+      slug: "vs-gfp",
+      name: "VS-GFP",
+      productName: "VS-GFP 1×10⁸ PFU/ml",
+      kind: "Reporter virus",
+      reporter: "GFP",
+      concentration: "1×10⁸ PFU/ml",
+      price: "$1,099.00",
+      catNo: "",
+      // Needs confirmation — placeholder pending the client's product copy.
+      summary: "GFP reporter virus supplied at 1×10⁸ PFU/ml.",
     },
   ],
 } as const;

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { exosomeProducts } from "@/lib/content";
+import { exosomeProducts, virusProducts } from "@/lib/content";
 import { routing, type Locale } from "@/i18n/routing";
 import { localizedUrl } from "@/lib/i18n/metadata";
 
@@ -11,11 +11,13 @@ const routes = [
   "/platforms",
   "/business-areas",
   "/products",
+  "/research-viruses",
   "/medical-center",
   "/medical-center/strategic-partners/dr-jerry-leung-clinic",
   "/news",
   "/contact",
   ...exosomeProducts.items.map((product) => `/products/${product.slug}`),
+  ...virusProducts.items.map((product) => `/research-viruses/${product.slug}`),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -24,7 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}${localizedUrl(locale, path)}`,
       lastModified: new Date(),
       changeFrequency: path === "/" ? "weekly" as const : "monthly" as const,
-      priority: path === "/" ? 1 : path.startsWith("/products/") ? 0.7 : 0.8,
+      priority:
+        path === "/"
+          ? 1
+          : path.startsWith("/products/") || path.startsWith("/research-viruses/")
+            ? 0.7
+            : 0.8,
     }))
   );
 }
