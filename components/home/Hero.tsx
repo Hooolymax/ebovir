@@ -6,7 +6,7 @@ import { hero } from "@/lib/content";
 
 export function Hero({
   content = hero,
-  headlineLines = ["Empowering", "Biology", "Omics"],
+  headlineLines = ["Your Partner in", "Precision", "Medicine"],
 }: {
   content?: typeof hero;
   headlineLines?: readonly string[];
@@ -47,10 +47,18 @@ export function Hero({
           transition={{ duration: 0.75, delay: 0.05 }}
           className="font-display text-6xl font-bold leading-[1.2] tracking-tight text-black sm:text-8xl lg:text-[6rem]"
         >
+          {/* First line is the lead-in; it is set one step smaller so the
+              remaining lines carry the emphasis. */}
           {headlineLines.map((line, index) => (
-            <span key={line}>
+            <span
+              key={line}
+              className={
+                index === 0 && headlineLines.length > 1
+                  ? "block text-[0.66em]"
+                  : "block"
+              }
+            >
               {line}
-              {index < headlineLines.length - 1 && <br />}
             </span>
           ))}
         </motion.h1>

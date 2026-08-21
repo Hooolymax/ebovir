@@ -64,7 +64,7 @@ export const frCA: Record<string, string> = {
   "contact.region": "Grande région de Montréal, Québec, Canada",
   "hero.eyebrow": "Santé de précision · Génomique · IA",
   "hero.heading": "L’entreprise de santé de précision",
-  "hero.subheading": "Réunir la génomique, le diagnostic moléculaire et l’IA pour personnaliser la santé de précision.",
+  "hero.subheading": "Propulser la biologie et les omiques — réunir la génomique, le diagnostic moléculaire et l’IA pour personnaliser la santé de précision.",
   "hero.primaryCta.label": "Découvrir notre science",
   "hero.secondaryCta.label": "Voir nos produits",
   "stats.0.label": "Fondée en 2021 · Issue de McGill",

@@ -2,7 +2,7 @@ import type { Locale } from "@/i18n/routing";
 
 export const ui = {
   en: {
-    heroHeadline: ["Empowering", "Biology", "Omics"],
+    heroHeadline: ["Your Partner in", "Precision", "Medicine"],
     requestInfo: "Request Info",
     language: "Language",
     explore: "Explore",
@@ -76,7 +76,7 @@ export const ui = {
     },
   },
   fr: {
-    heroHeadline: ["Propulser", "La biologie", "Et les omiques"],
+    heroHeadline: ["Votre partenaire en", "médecine", "de précision"],
     requestInfo: "Demander des renseignements",
     language: "Langue",
     explore: "Explorer",
@@ -150,7 +150,7 @@ export const ui = {
     },
   },
   "zh-CN": {
-    heroHeadline: ["赋能", "生物学", "与组学"],
+    heroHeadline: ["您的", "精准医学", "合作伙伴"],
     requestInfo: "索取资料",
     language: "语言",
     explore: "了解详情",

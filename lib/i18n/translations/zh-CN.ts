@@ -65,7 +65,7 @@ export const zhCN: Record<string, string> = {
   "contact.region": "加拿大魁北克省大蒙特利尔地区",
   "hero.eyebrow": "精准健康 · 基因组学 · 人工智能",
   "hero.heading": "精准健康公司",
-  "hero.subheading": "连接基因组学、分子诊断和人工智能，让精准健康真正因人而异。",
+  "hero.subheading": "赋能生物学与组学 —— 连接基因组学、分子诊断和人工智能，让精准健康真正因人而异。",
   "hero.primaryCta.label": "探索我们的科学",
   "hero.secondaryCta.label": "查看我们的产品",
   "stats.0.label": "成立于 2021 年 · 源自麦吉尔大学孵化",

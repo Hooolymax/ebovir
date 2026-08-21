@@ -230,7 +230,7 @@ export const hero = {
   // Built only from confirmed ebovir.ca facts (AI-powered precision medicine,
   // genomics, early cancer screening, Montreal, founded 2021 / McGill).
   subheading:
-    "Connecting genomics, molecular diagnostics, and AI to make precision health personal.",
+    "Empowering Biology & Omics — connecting genomics, molecular diagnostics, and AI to make precision health personal.",
   primaryCta: { label: "Explore Our Science", href: "/our-science" },
   secondaryCta: { label: "View Our Products", href: links.products },
 } as const;
