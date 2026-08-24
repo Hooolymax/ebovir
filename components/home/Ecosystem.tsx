@@ -5,7 +5,7 @@ import { Icon } from "@/components/visuals/Icon";
 import { ecosystem } from "@/lib/content";
 import { ui, type UiMessages } from "@/lib/i18n/ui";
 
-type IconName = "dna" | "molecule" | "ai" | "lab";
+type IconName = "dna" | "molecule" | "ai" | "lab" | "medtech";
 
 function EntryCard({
   name,
@@ -117,9 +117,9 @@ export function Ecosystem({
         <div className="relative mt-10 lg:mt-0 lg:pt-6">
           <span
             aria-hidden
-            className="absolute left-[12.5%] right-[12.5%] top-0 hidden h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent lg:block"
+            className="absolute left-[10%] right-[10%] top-0 hidden h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent lg:block"
           />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {content.cards.map((c, i) => (
               <Reveal key={c.name} delay={i * 0.08}>
                 <EntryCard

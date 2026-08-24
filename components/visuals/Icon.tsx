@@ -6,6 +6,7 @@ type IconName =
   | "dna"
   | "ai"
   | "lab"
+  | "medtech"
   | "shield"
   | "globe"
   | "spark"
@@ -63,6 +64,16 @@ export function Icon({
         <svg {...common}>
           <path d="M9 3h6M10 3v6l-4.5 8.5A2 2 0 0 0 7.3 21h9.4a2 2 0 0 0 1.8-2.9L14 9V3" />
           <path d="M7.8 15h8.4" />
+        </svg>
+      );
+    case "medtech":
+      // Clinical display: monitor + vital-sign trace + care cross
+      return (
+        <svg {...common}>
+          <rect x="2.5" y="4" width="19" height="13" rx="2.2" />
+          <path d="M9 21h6M12 17v4" />
+          <path d="M5.5 11h2.6l1.4-2.6 2 5.2 1.5-2.6h1.5" />
+          <path d="M17.6 8.4v3.2M16 10h3.2" />
         </svg>
       );
     case "shield":

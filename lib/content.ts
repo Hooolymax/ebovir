@@ -29,6 +29,7 @@ export const links = {
   businessAreas: "/business-areas",
   products: "/products",
   researchViruses: "/research-viruses",
+  eboMedIt: "https://web.e-ai.ca",
   medicalCenter: "/medical-center",
   news: "/news",
   home: "/",
@@ -99,6 +100,12 @@ export const mainNav: NavNode[] = [
         href: "/platforms#ebomed-ai",
         description: "AI health intelligence and genomic interpretation platform.",
         icon: "ai",
+      },
+      {
+        label: "EBOVIR Medical IT",
+        href: "/platforms#ebovir-medical-it",
+        description: "Medical IT and clinical systems platform.",
+        icon: "medtech",
       },
       {
         label: "EBOVIR Lab",
@@ -328,7 +335,7 @@ export const ecosystem = {
   eyebrow: "The Ecosystem",
   heading: "The EBOVIR Ecosystem",
   subtitle:
-    "Four connected entry points across genetic health, exosome biotechnology, AI healthcare, and laboratory services.",
+    "Five connected entry points across genetic health, exosome biotechnology, AI healthcare, medical IT, and laboratory services.",
   parent: {
     name: "EBOVIR",
     label: "Integrated Biology, Omics & Intelligent Healthcare Platform",
@@ -366,6 +373,18 @@ export const ecosystem = {
       href: links.eboMedAi,
       external: true,
       icon: "ai",
+    },
+    {
+      id: "ebovir-medical-it",
+      name: "EBOVIR Medical IT",
+      tag: "Medical IT & clinical systems",
+      description: "Medical IT and clinical systems platform.",
+      // Needs confirmation — platform positioning pending the client's copy.
+      blurb:
+        "The group's medical IT platform, building the clinical systems and digital infrastructure that carry diagnostics, genomic data, and AI decision support into everyday medical practice.",
+      href: links.eboMedIt,
+      external: true,
+      icon: "medtech",
     },
     {
       id: "ebovir-lab",
@@ -872,7 +891,7 @@ export const platformsPage = {
   eyebrow: "Platforms",
   title: "The EBOVIR platforms",
   intro:
-    "EBOVIR operates four connected, public-facing platforms — genetic health, exosome biotechnology, AI healthcare, and laboratory services — each an entry point into the wider precision-health ecosystem.",
+    "EBOVIR operates five connected, public-facing platforms — genetic health, exosome biotechnology, AI healthcare, medical IT, and laboratory services — each an entry point into the wider precision-health ecosystem.",
 } as const;
 
 /* ------------------------------------------------------------------ */
