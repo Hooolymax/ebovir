@@ -698,7 +698,7 @@ export const exosomeProducts = {
   eyebrow: "Products",
   title: "Plant & fungal exosome products",
   subtitle:
-    "A line of naturally derived exosome products. Each datasheet below summarizes the source, specifications, and handling — ordering is handled through the EboGenes store.",
+    "A line of naturally derived exosome products. Each datasheet below summarizes the source, specifications, and handling.",
   note: "Product information is taken from Ebovir datasheets (v1.0). For research and topical cosmetic use only — non-injectable.",
   // Per-product fields are from each product's datasheet.
   items: [

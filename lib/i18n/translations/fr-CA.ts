@@ -233,7 +233,7 @@ export const frCA: Record<string, string> = {
   "exosomeCommon.intendedUse": "R-D; produits cosmétiques à usage topique seulement. Non injectable.",
   "exosomeProducts.eyebrow": "Produits",
   "exosomeProducts.title": "Produits d’exosomes d’origine végétale et fongique",
-  "exosomeProducts.subtitle": "Une gamme de produits d’exosomes d’origine naturelle. Chaque fiche résume la source, les spécifications et la manipulation; les commandes sont traitées dans la boutique EboGenes.",
+  "exosomeProducts.subtitle": "Une gamme de produits d’exosomes d’origine naturelle. Chaque fiche résume la source, les spécifications et la manipulation.",
   "exosomeProducts.note": "Les renseignements sur les produits proviennent des fiches techniques d’Ebovir (v1.0). Pour la recherche et l’usage cosmétique topique seulement; non injectable.",
   "exosomeProducts.items.0.name": "Exosomes de clématite de Floride",
   "exosomeProducts.items.0.productName": "Exosomes dérivés de la clématite de Floride",

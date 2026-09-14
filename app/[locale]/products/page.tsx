@@ -75,7 +75,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
               {/* CTA */}
             <Reveal>
               <div className="mt-12 flex flex-col gap-3 sm:flex-row">
-                <Button href={links.eboGenesStore} withArrow>
+                <Button href="/contact#request-information" withArrow>
                   {labels.orderStore}
                 </Button>
                 <Button href={links.contact} variant="secondary">

@@ -235,7 +235,7 @@ export const zhCN: Record<string, string> = {
   "exosomeCommon.intendedUse": "用于研发及外用化妆品。不可注射。",
   "exosomeProducts.eyebrow": "产品",
   "exosomeProducts.title": "植物与真菌来源外泌体产品",
-  "exosomeProducts.subtitle": "一系列天然来源的外泌体产品。以下每份数据表概述产品来源、规格和处理方式；订购由 EboGenes 商店处理。",
+  "exosomeProducts.subtitle": "一系列天然来源的外泌体产品。以下每份数据表概述产品来源、规格和处理方式。",
   "exosomeProducts.note": "产品信息来自 Ebovir 数据表（v1.0）。仅供研究和外用化妆品使用；不可注射。",
   "exosomeProducts.items.0.name": "铁线莲外泌体",
   "exosomeProducts.items.0.productName": "铁线莲来源外泌体",
